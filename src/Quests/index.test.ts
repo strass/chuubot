@@ -1,8 +1,163 @@
-import Quest from "."
+import { Parser } from "n3";
+import Quest from ".";
+import { iris } from "../__schema";
 
-describe('Quest', ()=> {
-    it('should produce ttl', () => {
-        const quest = new Quest();
-        expect(quest.ttl).toMatchInlineSnapshot()
-    })
-})
+const parser = new Parser();
+const changesQuads =
+  parser.parse(`@prefix chuubo: <http://library.fortitude.cyou/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+chuubo:Changes rdf:type owl:NamedIndividual ,
+            chuubo:Quest ;
+    chuubo:xpEarned "0"^^xsd:int ;
+    chuubo:xpRequired "35"^^xsd:int ;
+    chuubo:completed "false"^^xsd:boolean .`);
+
+describe("Quest", () => {
+  const quest = new Quest(changesQuads);
+  it("should have data", () => {
+    const [xpRequired] = quest.get(iris.chuubo.xpRequired);
+    const [xpEarned] = quest.get(iris.chuubo.xpEarned);
+
+    expect(xpRequired).toBe("35")
+    expect(xpEarned).toBe("0")
+  });
+
+  it("should produce ttl", async () => {
+    expect(await quest.ttl).toMatchInlineSnapshot(`
+"@prefix owl: <http://www.w3.org/2002/07/owl#>.
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix xml: <http://www.w3.org/XML/1998/namespace>.
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix chuubo: <http://library.fortitude.cyou/>.
+
+chuubo:Changes a owl:NamedIndividual, chuubo:Quest;
+    chuubo:xpEarned \\"0\\"^^xsd:int;
+    chuubo:xpRequired \\"35\\"^^xsd:int;
+    chuubo:completed false.
+"
+`);
+  });
+
+  it("can find quests", () => {
+    const t = Quest.find("http://library.fortitude.cyou/Changes");
+    console.log(t);
+    expect(t).toMatchInlineSnapshot(`
+Array [
+  Object {
+    "graph": Object {
+      "termType": "DefaultGraph",
+      "value": "",
+    },
+    "object": Object {
+      "termType": "NamedNode",
+      "value": "http://library.fortitude.cyou/Quest",
+    },
+    "predicate": Object {
+      "termType": "NamedNode",
+      "value": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+    },
+    "subject": Object {
+      "termType": "NamedNode",
+      "value": "http://library.fortitude.cyou/Changes",
+    },
+    "termType": "Quad",
+  },
+  Object {
+    "graph": Object {
+      "termType": "DefaultGraph",
+      "value": "",
+    },
+    "object": Object {
+      "termType": "NamedNode",
+      "value": "http://www.w3.org/2002/07/owl#NamedIndividual",
+    },
+    "predicate": Object {
+      "termType": "NamedNode",
+      "value": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+    },
+    "subject": Object {
+      "termType": "NamedNode",
+      "value": "http://library.fortitude.cyou/Changes",
+    },
+    "termType": "Quad",
+  },
+  Object {
+    "graph": Object {
+      "termType": "DefaultGraph",
+      "value": "",
+    },
+    "object": Object {
+      "datatype": Object {
+        "termType": "NamedNode",
+        "value": "http://www.w3.org/2001/XMLSchema#boolean",
+      },
+      "language": "",
+      "termType": "Literal",
+      "value": "false",
+    },
+    "predicate": Object {
+      "termType": "NamedNode",
+      "value": "http://library.fortitude.cyou/completed",
+    },
+    "subject": Object {
+      "termType": "NamedNode",
+      "value": "http://library.fortitude.cyou/Changes",
+    },
+    "termType": "Quad",
+  },
+  Object {
+    "graph": Object {
+      "termType": "DefaultGraph",
+      "value": "",
+    },
+    "object": Object {
+      "datatype": Object {
+        "termType": "NamedNode",
+        "value": "http://www.w3.org/2001/XMLSchema#int",
+      },
+      "language": "",
+      "termType": "Literal",
+      "value": "0",
+    },
+    "predicate": Object {
+      "termType": "NamedNode",
+      "value": "http://library.fortitude.cyou/xpEarned",
+    },
+    "subject": Object {
+      "termType": "NamedNode",
+      "value": "http://library.fortitude.cyou/Changes",
+    },
+    "termType": "Quad",
+  },
+  Object {
+    "graph": Object {
+      "termType": "DefaultGraph",
+      "value": "",
+    },
+    "object": Object {
+      "datatype": Object {
+        "termType": "NamedNode",
+        "value": "http://www.w3.org/2001/XMLSchema#int",
+      },
+      "language": "",
+      "termType": "Literal",
+      "value": "35",
+    },
+    "predicate": Object {
+      "termType": "NamedNode",
+      "value": "http://library.fortitude.cyou/xpRequired",
+    },
+    "subject": Object {
+      "termType": "NamedNode",
+      "value": "http://library.fortitude.cyou/Changes",
+    },
+    "termType": "Quad",
+  },
+]
+`);
+  });
+});

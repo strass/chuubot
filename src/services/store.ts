@@ -2,7 +2,7 @@ import * as n3 from "n3";
 import fs from "fs/promises";
 
 const store = new n3.Store();
-const data = await fs.readFile("data/data.ttl");
+const data = await fs.readFile("src/ontology.ttl");
 const quads = new n3.Parser().parse(data.toString());
 store.addQuads(quads);
 
