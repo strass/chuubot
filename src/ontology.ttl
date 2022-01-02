@@ -1,0 +1,197 @@
+@prefix : <http://library.fortitude.cyou/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix chuubo: <http://library.fortitude.cyou/> .
+@base <http://library.fortitude.cyou/> .
+
+<http://library.fortitude.cyou/> rdf:type owl:Ontology .
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  http://library.fortitude.cyou/arc
+chuubo:arc rdf:type owl:ObjectProperty ;
+           rdfs:subPropertyOf owl:topObjectProperty ;
+           rdf:type owl:FunctionalProperty ;
+           rdfs:domain chuubo:Character ;
+           rdfs:range chuubo:Arc .
+
+
+###  http://library.fortitude.cyou/belongsTo
+chuubo:belongsTo rdf:type owl:ObjectProperty ;
+                 rdfs:subPropertyOf owl:topObjectProperty ;
+                 owl:inverseOf chuubo:onQuest ;
+                 rdf:type owl:FunctionalProperty ,
+                          owl:TransitiveProperty ;
+                 rdfs:domain chuubo:Quest .
+
+
+###  http://library.fortitude.cyou/onQuest
+chuubo:onQuest rdf:type owl:ObjectProperty ;
+               rdfs:subPropertyOf owl:topObjectProperty ;
+               rdf:type owl:TransitiveProperty ;
+               rdfs:domain chuubo:Character ;
+               rdfs:range chuubo:Quest .
+
+
+#################################################################
+#    Data properties
+#################################################################
+
+###  http://library.fortitude.cyou/affliction
+chuubo:affliction rdf:type owl:DatatypeProperty ;
+                  rdfs:subPropertyOf owl:topDataProperty .
+
+
+###  http://library.fortitude.cyou/arcLevel
+chuubo:arcLevel rdf:type owl:DatatypeProperty ;
+                rdfs:subPropertyOf owl:topDataProperty ;
+                rdfs:domain chuubo:Character .
+
+
+###  http://library.fortitude.cyou/arcTitle
+chuubo:arcTitle rdf:type owl:DatatypeProperty ;
+                rdfs:subPropertyOf owl:topDataProperty ;
+                rdfs:domain chuubo:Character .
+
+
+###  http://library.fortitude.cyou/bond
+chuubo:bond rdf:type owl:DatatypeProperty ;
+            rdfs:subPropertyOf owl:topDataProperty ;
+            rdfs:domain chuubo:Character .
+
+
+###  http://library.fortitude.cyou/completed
+chuubo:completed rdf:type owl:DatatypeProperty ;
+                 rdfs:subPropertyOf owl:topDataProperty ;
+                 rdf:type owl:FunctionalProperty ;
+                 rdfs:domain chuubo:Quest ;
+                 rdfs:range xsd:boolean .
+
+
+###  http://library.fortitude.cyou/majorGoals
+chuubo:majorGoals rdf:type owl:DatatypeProperty ;
+                  rdfs:subPropertyOf owl:topDataProperty ;
+                  rdfs:domain chuubo:Quest .
+
+
+###  http://library.fortitude.cyou/questFlavor
+chuubo:questFlavor rdf:type owl:DatatypeProperty ;
+                   rdfs:subPropertyOf owl:topDataProperty ;
+                   rdfs:domain chuubo:Quest .
+
+
+###  http://library.fortitude.cyou/skill
+chuubo:skill rdf:type owl:DatatypeProperty ;
+             rdfs:subPropertyOf owl:topDataProperty ;
+             rdfs:domain chuubo:Character .
+
+
+###  http://library.fortitude.cyou/xpEarned
+chuubo:xpEarned rdf:type owl:DatatypeProperty ;
+                rdfs:subPropertyOf owl:topDataProperty ;
+                rdfs:domain chuubo:Quest .
+
+
+###  http://library.fortitude.cyou/xpRequired
+chuubo:xpRequired rdf:type owl:DatatypeProperty ;
+                  rdfs:subPropertyOf owl:topDataProperty ;
+                  rdfs:domain chuubo:Quest .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  http://library.fortitude.cyou/Arc
+chuubo:Arc rdf:type owl:Class .
+
+
+###  http://library.fortitude.cyou/Character
+chuubo:Character rdf:type owl:Class .
+
+
+###  http://library.fortitude.cyou/Quest
+chuubo:Quest rdf:type owl:Class .
+
+
+#################################################################
+#    Individuals
+#################################################################
+
+###  http://library.fortitude.cyou/Aspect
+chuubo:Aspect rdf:type owl:NamedIndividual ,
+                       chuubo:Arc .
+
+
+###  http://library.fortitude.cyou/Changes
+chuubo:Changes rdf:type owl:NamedIndividual ,
+                        chuubo:Quest ;
+               chuubo:xpEarned "0"^^xsd:int ;
+               chuubo:xpRequired "35"^^xsd:int ;
+               chuubo:completed "false"^^xsd:boolean .
+
+
+###  http://library.fortitude.cyou/Emptiness
+chuubo:Emptiness rdf:type owl:NamedIndividual ,
+                          chuubo:Arc .
+
+
+###  http://library.fortitude.cyou/Knight
+chuubo:Knight rdf:type owl:NamedIndividual ,
+                       chuubo:Arc .
+
+
+###  http://library.fortitude.cyou/dex
+chuubo:dex rdf:type owl:NamedIndividual ,
+                    chuubo:Character ;
+           chuubo:arc chuubo:Emptiness ;
+           chuubo:onQuest chuubo:Changes ;
+           chuubo:affliction "I can't fool anyone."^^xsd:string ;
+           chuubo:arcLevel "0"^^xsd:int ;
+           chuubo:arcTitle "???"^^xsd:string ;
+           chuubo:bond "I can't turn my back on an animal in need."^^xsd:string ;
+           chuubo:skill "Being Careful -1"^^xsd:string ,
+                        "Cooking 1"^^xsd:string ,
+                        "Imagination 1"^^xsd:string ,
+                        "Physical Work 2"^^xsd:string ,
+                        "Shine 1"^^xsd:string ,
+                        "Speaking The Truth 3"^^xsd:string .
+
+
+###  http://library.fortitude.cyou/everspace
+chuubo:everspace rdf:type owl:NamedIndividual ,
+                          chuubo:Character ;
+                 chuubo:arc chuubo:Knight ;
+                 chuubo:affliction "I am one with the network"^^xsd:string ;
+                 chuubo:arcLevel "0"^^xsd:int ;
+                 chuubo:arcTitle "Guru"^^xsd:string ;
+                 chuubo:bond "I must guide people to what they wish to know."^^xsd:string ;
+                 chuubo:skill "Explaining himself -1 (Bwah)"^^xsd:string ,
+                              "Human body stuff 0 (You have one)"^^xsd:string ,
+                              "Sneaky 1 (Tricks and quirks)"^^xsd:string ,
+                              "The Virtual World 2 (You are at home in the cyberspace)"^^xsd:string ,
+                              "Typing 2 (Such words per minute)"^^xsd:string ,
+                              "Understanding 3 (Very good at figuring out things)"^^xsd:string .
+
+
+###  http://library.fortitude.cyou/kymme
+chuubo:kymme rdf:type owl:NamedIndividual ,
+                      chuubo:Character ;
+             chuubo:arc chuubo:Aspect ;
+             chuubo:affliction "Technology is hostile to me."^^xsd:string ;
+             chuubo:arcLevel "0"^^xsd:int ;
+             chuubo:arcTitle "n00b"^^xsd:string ;
+             chuubo:bond "I must live up to my sister's example."^^xsd:string ;
+             chuubo:skill "Annoying Little Brother 1"^^xsd:string ,
+                          "Clever 2"^^xsd:string ,
+                          "Determinator 3"^^xsd:string ,
+                          "Good Friend 2"^^xsd:string ,
+                          "Technical Wizardry -1"^^xsd:string .
+
+
+###  Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi
