@@ -1,4 +1,4 @@
-import { Parser } from "n3";
+import { Parser, Quad } from "n3";
 import Quest from ".";
 import { iris } from "../__schema";
 
@@ -16,13 +16,46 @@ chuubo:Changes rdf:type owl:NamedIndividual ,
     chuubo:completed "false"^^xsd:boolean .`);
 
 describe("Quest", () => {
+  it("errors when given bad input", () => {
+    const noQuads: Quad[] = [];
+    const multipleQuests: Quad[] =
+      parser.parse(`@prefix chuubo: <http://library.fortitude.cyou/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+chuubo:Changes rdf:type owl:NamedIndividual ,
+            chuubo:Quest ;
+    chuubo:xpEarned "0"^^xsd:int ;
+    chuubo:xpRequired "35"^^xsd:int ;
+    chuubo:completed "false"^^xsd:boolean .
+    
+chuubo:Changes2 rdf:type owl:NamedIndividual ,
+            chuubo:Quest ;
+    chuubo:xpEarned "0"^^xsd:int ;
+    chuubo:xpRequired "35"^^xsd:int ;
+    chuubo:completed "false"^^xsd:boolean .`);
+    const nonQuest: Quad[] =
+      parser.parse(`@prefix chuubo: <http://library.fortitude.cyou/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+###  http://library.fortitude.cyou/Emptiness
+chuubo:Emptiness rdf:type owl:NamedIndividual ,
+                          chuubo:Arc .`);
+    expect(() => new Quest(noQuads)).toThrowError();
+    expect(() => new Quest(multipleQuests)).toThrowError();
+    expect(() => new Quest(nonQuest)).toThrowError();
+  });
+
   const quest = new Quest(changesQuads);
   it("should have data", () => {
     const [xpRequired] = quest.get(iris.chuubo.xpRequired);
     const [xpEarned] = quest.get(iris.chuubo.xpEarned);
 
-    expect(xpRequired).toBe("35")
-    expect(xpEarned).toBe("0")
+    expect(xpRequired).toBe("35");
+    expect(xpEarned).toBe("0");
   });
 
   it("should produce ttl", async () => {
@@ -43,9 +76,7 @@ chuubo:Changes a owl:NamedIndividual, chuubo:Quest;
   });
 
   it("can find quests", () => {
-    const t = Quest.find("http://library.fortitude.cyou/Changes");
-    console.log(t);
-    expect(t).toMatchInlineSnapshot(`
+     expect(Quest.find("http://library.fortitude.cyou/Changes")).toMatchInlineSnapshot(`
 Array [
   Object {
     "graph": Object {
