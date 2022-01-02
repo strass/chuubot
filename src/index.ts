@@ -2,6 +2,7 @@
 import { Client, Collection, CommandInteraction, Intents } from "discord.js";
 import dotenv from "dotenv";
 import fs from "fs";
+import invariant from "tiny-invariant";
 
 dotenv.config();
 
@@ -36,29 +37,50 @@ for (const file of commandFiles) {
   const command = (await import(`./commands/${file}`) ).default
   // Set a new item in the Collection
   // With the key as the command name and the value as the exported module
-  client.commands.set(command.data.name, command);
+  client.commands.set(command.data.name ?? file.split('.')[0], command);
 }
 
-// When the client is ready, run this code (only once)
-client.once("ready", () => {
-  console.log("Ready!");
-});
-
 client.on("interactionCreate", async (interaction) => {
-  if (!interaction.isCommand()) return;
+  console.log(
+    `${interaction.user.tag} in #${
 
-  const command = client.commands.get(interaction.commandName);
+      interaction?.channel?.name
+    } triggered an interaction.`
+  );
+  switch(true) {
+    case interaction.isCommand(): {
+      invariant(interaction.isCommand())
+      const command = client.commands.get(interaction.commandName);
+      
+      try {
+        if (!command) throw new Error(`No command found for '${interaction.commandName}'`);
+        await command.execute(interaction);
+      } catch (error) {
+        console.error(error);
+        await interaction.reply({
+          content: "There was an error while executing this command!",
+          ephemeral: true,
+        });
+      }
+    }
 
-  if (!command) return;
+    case interaction.isButton(): {
+      invariant(interaction.isButton())
 
-  try {
-    await command.execute(interaction);
-  } catch (error) {
-    console.error(error);
-    await interaction.reply({
-      content: "There was an error while executing this command!",
-      ephemeral: true,
-    });
+      // const command = client.commands.get(interaction.commandName);
+
+      // if (!command) return;
+    
+      // try {
+      //   await command.execute(interaction);
+      // } catch (error) {
+      //   console.error(error);
+      //   await interaction.reply({
+      //     content: "There was an error while executing this command!",
+      //     ephemeral: true,
+      //   });
+      // }
+    }
   }
 });
 

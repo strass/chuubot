@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "node --no-warnings --experimental-vm-modules node_modules/jest/bin/jest.js"
+    "test": "ONTOLOGY_FILE='src/ontology.ttl' node --no-warnings --experimental-vm-modules node_modules/jest/bin/jest.js"
   },
   "author": "",
   "license": "ISC",
@@ -14,6 +14,7 @@
     "discord.js": "^13.5.0",
     "eslint": "^8.6.0",
     "n3": "^1.12.2",
+    "tiny-invariant": "^1.2.0",
     "typescript": "^4.5.4"
   },
   "devDependencies": {

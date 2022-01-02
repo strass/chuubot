@@ -1,51 +1,24 @@
 import { MessageActionRow, MessageButton, MessageEmbed } from "discord.js";
-import * as n3 from "n3";
+import { Quad } from "n3";
+import CustomQuad from "../services/CustomQuad";
 import store, { DataFactory } from "../services/store";
-import writeTurtle from "../services/writer";
-import { iris, prefixes } from "../__schema";
+import { iris } from "../__schema";
 
-export default class Quest {
-  _store: n3.Store<n3.Quad, n3.Quad, n3.Quad, n3.Quad>;
-  subject: n3.Quad_Subject;
-  constructor(questQuads: n3.Quad[]) {
-    const store = new n3.Store<n3.Quad, n3.Quad, n3.Quad, n3.Quad>(questQuads);
-    const subjects = store.getSubjects(iris.rdf.type, iris.chuubo.Quest, null);
-    if (subjects.length !== 1)
-      throw new Error("Quest received multiple subjects or a non-quest");
-    this.subject = subjects[0];
-    this._store = store;
-  }
+export default class Quest extends CustomQuad {
+  constructor(questQuads: Quad[]) {
+    super(questQuads);
 
-  get(questProperty: string) {
-    return this._store
-      .getObjects(this.subject, questProperty, null)
-      .map((object) => object.value);
-  }
-
-  /** Right now this only works for functional properties (single per subject), and only for literals */
-  set(questProperty: string, newValue: any) {
-    const currentQuads = this._store.getQuads(
-      this.subject,
-      questProperty,
-      null,
+    const subjects = this._store.getSubjects(
+      iris.rdf.type,
+      iris.chuubo.Quest,
       null
     );
-    this._store.removeQuads(currentQuads);
-    const newQuad = DataFactory.quad(
-      this.subject,
-      DataFactory.namedNode(questProperty),
-      newValue
-    );
-    this._store.addQuad(newQuad);
-    store.replaceSubject(Array.from(this._store));
-    return newQuad;
+    if (subjects.length !== 1)
+      throw new Error(
+        "Quest received multiple subjects or a non-quest"
+      );
   }
-
-  get ttl() {
-    const quads = this._store.getQuads(null, null, null, null);
-    return writeTurtle(quads);
-  }
-
+  
   get discordEmbed() {
     const [xpRequired] = this.get(iris.chuubo.xpRequired);
     const [xpEarned] = this.get(iris.chuubo.xpEarned);

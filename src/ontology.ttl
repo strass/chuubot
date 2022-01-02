@@ -1,3 +1,5 @@
+@prefix : <http://library.fortitude.cyou/> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
@@ -7,6 +9,14 @@
 @base <http://library.fortitude.cyou/> .
 
 <http://library.fortitude.cyou/> rdf:type owl:Ontology .
+
+#################################################################
+#    Annotation properties
+#################################################################
+
+###  http://purl.org/dc/elements/1.1/description
+dc:description rdf:type owl:AnnotationProperty .
+
 
 #################################################################
 #    Object Properties
@@ -24,8 +34,7 @@ chuubo:arc rdf:type owl:ObjectProperty ;
 chuubo:belongsTo rdf:type owl:ObjectProperty ;
                  rdfs:subPropertyOf owl:topObjectProperty ;
                  owl:inverseOf chuubo:onQuest ;
-                 rdf:type owl:FunctionalProperty ,
-                          owl:TransitiveProperty ;
+                 rdf:type owl:TransitiveProperty ;
                  rdfs:domain chuubo:Quest .
 
 
@@ -127,14 +136,6 @@ chuubo:Aspect rdf:type owl:NamedIndividual ,
                        chuubo:Arc .
 
 
-###  http://library.fortitude.cyou/Changes
-chuubo:Changes rdf:type owl:NamedIndividual ,
-                        chuubo:Quest ;
-               chuubo:xpEarned "0"^^xsd:int ;
-               chuubo:xpRequired "35"^^xsd:int ;
-               chuubo:completed "false"^^xsd:boolean .
-
-
 ###  http://library.fortitude.cyou/Emptiness
 chuubo:Emptiness rdf:type owl:NamedIndividual ,
                           chuubo:Arc .
@@ -149,7 +150,8 @@ chuubo:Knight rdf:type owl:NamedIndividual ,
 chuubo:dex rdf:type owl:NamedIndividual ,
                     chuubo:Character ;
            chuubo:arc chuubo:Emptiness ;
-           chuubo:onQuest chuubo:Changes ;
+           chuubo:onQuest chuubo:quest-dex-any-time-1 ,
+                          chuubo:quest-dex-emptiness-1 ;
            chuubo:affliction "I can't fool anyone."^^xsd:string ;
            chuubo:arcLevel "0"^^xsd:int ;
            chuubo:arcTitle "???"^^xsd:string ;
@@ -191,6 +193,38 @@ chuubo:kymme rdf:type owl:NamedIndividual ,
                           "Determinator 3"^^xsd:string ,
                           "Good Friend 2"^^xsd:string ,
                           "Technical Wizardry -1"^^xsd:string .
+
+
+###  http://library.fortitude.cyou/quest-dex-any-time-1
+chuubo:quest-dex-any-time-1 rdf:type owl:NamedIndividual ,
+                                     chuubo:Quest ;
+                            chuubo:belongsTo chuubo:dex ;
+                            chuubo:affliction ""^^xsd:string ;
+                            chuubo:xpEarned "0"^^xsd:int ;
+                            chuubo:xpRequired "15"^^xsd:int ;
+                            dc:description "You can earn a bonus XP towards this quest at any time (up to once per scene) by explaining what you've been doing or trying for in the current scene as related to one of your errands. Catch-phrase: \"I was going that way anyway.\"" ;
+                            rdfs:label "Running Errands" .
+
+
+###  http://library.fortitude.cyou/quest-dex-emptiness-1
+chuubo:quest-dex-emptiness-1 rdf:type owl:NamedIndividual ,
+                                      chuubo:Quest ;
+                             chuubo:belongsTo chuubo:dex ;
+                             chuubo:completed "false"^^xsd:boolean ;
+                             chuubo:majorGoals "you find a new favorite restaurant/market."^^xsd:string ,
+                                               "you find an extracurricular activity to please your dad."^^xsd:string ,
+                                               "you meet an aunt you've never met."^^xsd:string ;
+                             chuubo:questFlavor "breaking away from who you used to be"^^xsd:string ,
+                                                "comforting your little sister"^^xsd:string ,
+                                                "doing what someone from your past would have wanted you to do"^^xsd:string ,
+                                                "listening to stories from before the 'net"^^xsd:string ,
+                                                "missing the life you used to have"^^xsd:string ,
+                                                "proving that you're just as good as everyone else"^^xsd:string ,
+                                                "talking with somebody about why there’s such a thing as death"^^xsd:string ;
+                             chuubo:xpEarned "0"^^xsd:int ;
+                             chuubo:xpRequired "35"^^xsd:int ;
+                             dc:description "You've just moved to the city to live with your dad. You miss the countryside but you don't have anywhere else to go. It's been hard to adjust to your new life - your dad works long hours so you have to spend a lot of time taking care of your sister." ;
+                             rdfs:label "Changes" .
 
 
 ###  Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi

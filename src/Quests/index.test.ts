@@ -122,6 +122,25 @@ Array [
       "value": "",
     },
     "object": Object {
+      "termType": "NamedNode",
+      "value": "http://library.fortitude.cyou/dex",
+    },
+    "predicate": Object {
+      "termType": "NamedNode",
+      "value": "http://library.fortitude.cyou/belongsTo",
+    },
+    "subject": Object {
+      "termType": "NamedNode",
+      "value": "http://library.fortitude.cyou/Changes",
+    },
+    "termType": "Quad",
+  },
+  Object {
+    "graph": Object {
+      "termType": "DefaultGraph",
+      "value": "",
+    },
+    "object": Object {
       "datatype": Object {
         "termType": "NamedNode",
         "value": "http://www.w3.org/2001/XMLSchema#boolean",
@@ -133,6 +152,246 @@ Array [
     "predicate": Object {
       "termType": "NamedNode",
       "value": "http://library.fortitude.cyou/completed",
+    },
+    "subject": Object {
+      "termType": "NamedNode",
+      "value": "http://library.fortitude.cyou/Changes",
+    },
+    "termType": "Quad",
+  },
+  Object {
+    "graph": Object {
+      "termType": "DefaultGraph",
+      "value": "",
+    },
+    "object": Object {
+      "datatype": Object {
+        "termType": "NamedNode",
+        "value": "http://www.w3.org/2001/XMLSchema#string",
+      },
+      "language": "",
+      "termType": "Literal",
+      "value": "you find a new favorite restaurant/market.",
+    },
+    "predicate": Object {
+      "termType": "NamedNode",
+      "value": "http://library.fortitude.cyou/majorGoals",
+    },
+    "subject": Object {
+      "termType": "NamedNode",
+      "value": "http://library.fortitude.cyou/Changes",
+    },
+    "termType": "Quad",
+  },
+  Object {
+    "graph": Object {
+      "termType": "DefaultGraph",
+      "value": "",
+    },
+    "object": Object {
+      "datatype": Object {
+        "termType": "NamedNode",
+        "value": "http://www.w3.org/2001/XMLSchema#string",
+      },
+      "language": "",
+      "termType": "Literal",
+      "value": "you meet an aunt you've never met.",
+    },
+    "predicate": Object {
+      "termType": "NamedNode",
+      "value": "http://library.fortitude.cyou/majorGoals",
+    },
+    "subject": Object {
+      "termType": "NamedNode",
+      "value": "http://library.fortitude.cyou/Changes",
+    },
+    "termType": "Quad",
+  },
+  Object {
+    "graph": Object {
+      "termType": "DefaultGraph",
+      "value": "",
+    },
+    "object": Object {
+      "datatype": Object {
+        "termType": "NamedNode",
+        "value": "http://www.w3.org/2001/XMLSchema#string",
+      },
+      "language": "",
+      "termType": "Literal",
+      "value": "you find an extracurricular activity to please your dad.",
+    },
+    "predicate": Object {
+      "termType": "NamedNode",
+      "value": "http://library.fortitude.cyou/majorGoals",
+    },
+    "subject": Object {
+      "termType": "NamedNode",
+      "value": "http://library.fortitude.cyou/Changes",
+    },
+    "termType": "Quad",
+  },
+  Object {
+    "graph": Object {
+      "termType": "DefaultGraph",
+      "value": "",
+    },
+    "object": Object {
+      "datatype": Object {
+        "termType": "NamedNode",
+        "value": "http://www.w3.org/2001/XMLSchema#string",
+      },
+      "language": "",
+      "termType": "Literal",
+      "value": "missing the life you used to have",
+    },
+    "predicate": Object {
+      "termType": "NamedNode",
+      "value": "http://library.fortitude.cyou/questFlavor",
+    },
+    "subject": Object {
+      "termType": "NamedNode",
+      "value": "http://library.fortitude.cyou/Changes",
+    },
+    "termType": "Quad",
+  },
+  Object {
+    "graph": Object {
+      "termType": "DefaultGraph",
+      "value": "",
+    },
+    "object": Object {
+      "datatype": Object {
+        "termType": "NamedNode",
+        "value": "http://www.w3.org/2001/XMLSchema#string",
+      },
+      "language": "",
+      "termType": "Literal",
+      "value": "doing what someone from your past would have wanted you to do",
+    },
+    "predicate": Object {
+      "termType": "NamedNode",
+      "value": "http://library.fortitude.cyou/questFlavor",
+    },
+    "subject": Object {
+      "termType": "NamedNode",
+      "value": "http://library.fortitude.cyou/Changes",
+    },
+    "termType": "Quad",
+  },
+  Object {
+    "graph": Object {
+      "termType": "DefaultGraph",
+      "value": "",
+    },
+    "object": Object {
+      "datatype": Object {
+        "termType": "NamedNode",
+        "value": "http://www.w3.org/2001/XMLSchema#string",
+      },
+      "language": "",
+      "termType": "Literal",
+      "value": "breaking away from who you used to be",
+    },
+    "predicate": Object {
+      "termType": "NamedNode",
+      "value": "http://library.fortitude.cyou/questFlavor",
+    },
+    "subject": Object {
+      "termType": "NamedNode",
+      "value": "http://library.fortitude.cyou/Changes",
+    },
+    "termType": "Quad",
+  },
+  Object {
+    "graph": Object {
+      "termType": "DefaultGraph",
+      "value": "",
+    },
+    "object": Object {
+      "datatype": Object {
+        "termType": "NamedNode",
+        "value": "http://www.w3.org/2001/XMLSchema#string",
+      },
+      "language": "",
+      "termType": "Literal",
+      "value": "listening to stories from before the 'net",
+    },
+    "predicate": Object {
+      "termType": "NamedNode",
+      "value": "http://library.fortitude.cyou/questFlavor",
+    },
+    "subject": Object {
+      "termType": "NamedNode",
+      "value": "http://library.fortitude.cyou/Changes",
+    },
+    "termType": "Quad",
+  },
+  Object {
+    "graph": Object {
+      "termType": "DefaultGraph",
+      "value": "",
+    },
+    "object": Object {
+      "datatype": Object {
+        "termType": "NamedNode",
+        "value": "http://www.w3.org/2001/XMLSchema#string",
+      },
+      "language": "",
+      "termType": "Literal",
+      "value": "comforting your little sister",
+    },
+    "predicate": Object {
+      "termType": "NamedNode",
+      "value": "http://library.fortitude.cyou/questFlavor",
+    },
+    "subject": Object {
+      "termType": "NamedNode",
+      "value": "http://library.fortitude.cyou/Changes",
+    },
+    "termType": "Quad",
+  },
+  Object {
+    "graph": Object {
+      "termType": "DefaultGraph",
+      "value": "",
+    },
+    "object": Object {
+      "datatype": Object {
+        "termType": "NamedNode",
+        "value": "http://www.w3.org/2001/XMLSchema#string",
+      },
+      "language": "",
+      "termType": "Literal",
+      "value": "talking with somebody about why there’s such a thing as death",
+    },
+    "predicate": Object {
+      "termType": "NamedNode",
+      "value": "http://library.fortitude.cyou/questFlavor",
+    },
+    "subject": Object {
+      "termType": "NamedNode",
+      "value": "http://library.fortitude.cyou/Changes",
+    },
+    "termType": "Quad",
+  },
+  Object {
+    "graph": Object {
+      "termType": "DefaultGraph",
+      "value": "",
+    },
+    "object": Object {
+      "datatype": Object {
+        "termType": "NamedNode",
+        "value": "http://www.w3.org/2001/XMLSchema#string",
+      },
+      "language": "",
+      "termType": "Literal",
+      "value": "proving that you're just as good as everyone else",
+    },
+    "predicate": Object {
+      "termType": "NamedNode",
+      "value": "http://library.fortitude.cyou/questFlavor",
     },
     "subject": Object {
       "termType": "NamedNode",

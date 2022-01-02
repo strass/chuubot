@@ -5,7 +5,7 @@ import writeTurtle from "./writer";
 const store: n3.Store<n3.Quad, n3.Quad, n3.Quad, n3.Quad> & { replaceSubject: (newQuads: n3.Quad[]) => void } =
   new n3.Store<n3.Quad, n3.Quad, n3.Quad, n3.Quad>() as any;
 
-const data = await fs.readFile("src/ontology.ttl");
+const data = await fs.readFile(process.env.ONTOLOGY_FILE);
 const quads = new n3.Parser().parse(data.toString());
 store.addQuads(quads);
 
@@ -19,7 +19,7 @@ store.replaceSubject = async (newQuads) => {
   store.removeQuads(oldQuads);
   store.addQuads(newQuads);
 
-  await fs.writeFile("src/ontology.ttl", await writeTurtle(Array.from(store)));
+  await fs.writeFile(process.env.ONTOLOGY_FILE, await writeTurtle(Array.from(store)));
 };
 
 export default store;
