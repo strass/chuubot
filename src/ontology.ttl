@@ -34,14 +34,13 @@ chuubo:arc rdf:type owl:ObjectProperty ;
 chuubo:belongsTo rdf:type owl:ObjectProperty ;
                  rdfs:subPropertyOf owl:topObjectProperty ;
                  owl:inverseOf chuubo:onQuest ;
-                 rdf:type owl:TransitiveProperty ;
-                 rdfs:domain chuubo:Quest .
+                 rdfs:domain chuubo:Quest ;
+                 rdfs:range chuubo:Character .
 
 
 ###  http://library.fortitude.cyou/onQuest
 chuubo:onQuest rdf:type owl:ObjectProperty ;
                rdfs:subPropertyOf owl:topObjectProperty ;
-               rdf:type owl:TransitiveProperty ;
                rdfs:domain chuubo:Character ;
                rdfs:range chuubo:Quest .
 

@@ -1,7 +1,8 @@
 import { SlashCommandBuilder } from "@discordjs/builders";
-import { CommandInteraction, MessageActionRow } from "discord.js";
+import { ButtonInteraction, CommandInteraction } from "discord.js";
 import Quest from "../Quests";
 import store, { DataFactory } from "../services/store";
+import { iris } from "../__schema";
 
 /** Look up a quest by ID */
 export default {
@@ -25,6 +26,20 @@ export default {
       return await interaction.reply({
         ephemeral: true,
         content: "Error",
+      });
+    }
+  },
+  async respond(interaction: ButtonInteraction) {
+    const [action, questId] = interaction.customId.split("|");
+    if (action === this.data.name) {
+      const quads = store.getQuads(DataFactory.namedNode(questId), null, null, null);
+      const quest = new Quest(quads);
+      const [currentXp] = quest.get(iris.chuubo.xpEarned);
+      quest.set(iris.chuubo.xpEarned, Number(currentXp) + 1);
+      await store.replaceSubject(Array.from(quest._store));
+
+      return await interaction.reply({
+        content: "Quest updated",
       });
     }
   },

@@ -1,5 +1,11 @@
 // Require the necessary discord.js classes
-import { Client, Collection, CommandInteraction, Intents } from "discord.js";
+import {
+  Client,
+  Collection,
+  CommandInteraction,
+  Intents,
+  Interaction,
+} from "discord.js";
 import dotenv from "dotenv";
 import fs from "fs";
 import invariant from "tiny-invariant";
@@ -12,7 +18,10 @@ const client = new Client({
 }) as Client<any> & {
   commands: Collection<
     string,
-    { execute: (interaction: CommandInteraction) => Promise<void> }
+    {
+      execute: (interaction: CommandInteraction) => Promise<void>;
+      respond: (interaction: Interaction) => Promise<void>;
+    }
   >;
 };
 const eventFiles = fs
@@ -34,26 +43,24 @@ const commandFiles = fs
   .filter((file) => file.endsWith(".ts"));
 
 for (const file of commandFiles) {
-  const command = (await import(`./commands/${file}`) ).default
+  const command = (await import(`./commands/${file}`)).default;
   // Set a new item in the Collection
   // With the key as the command name and the value as the exported module
-  client.commands.set(command.data.name ?? file.split('.')[0], command);
+  client.commands.set(command.data.name ?? file.split(".")[0], command);
 }
 
 client.on("interactionCreate", async (interaction) => {
   console.log(
-    `${interaction.user.tag} in #${
-
-      interaction?.channel?.name
-    } triggered an interaction.`
+    `${interaction.user.tag} in #${interaction?.channel?.name} triggered an interaction.`
   );
-  switch(true) {
+  switch (true) {
     case interaction.isCommand(): {
-      invariant(interaction.isCommand())
+      invariant(interaction.isCommand());
       const command = client.commands.get(interaction.commandName);
-      
+
       try {
-        if (!command) throw new Error(`No command found for '${interaction.commandName}'`);
+        if (!command)
+          throw new Error(`No command found for '${interaction.commandName}'`);
         await command.execute(interaction);
       } catch (error) {
         console.error(error);
@@ -62,24 +69,32 @@ client.on("interactionCreate", async (interaction) => {
           ephemeral: true,
         });
       }
+      break;
     }
 
     case interaction.isButton(): {
-      invariant(interaction.isButton())
+      invariant(interaction.isButton());
+      const [action, questId] = interaction.customId.split("|");
 
-      // const command = client.commands.get(interaction.commandName);
+      const command = client.commands.get(action);
 
-      // if (!command) return;
-    
-      // try {
-      //   await command.execute(interaction);
-      // } catch (error) {
-      //   console.error(error);
-      //   await interaction.reply({
-      //     content: "There was an error while executing this command!",
-      //     ephemeral: true,
-      //   });
-      // }
+      if (!command) return;
+
+      try {
+        await command.respond(interaction);
+      } catch (error) {
+        console.error(error);
+        await interaction.reply({
+          content: "There was an error while executing this command!",
+          ephemeral: true,
+        });
+      }
+      break;
+    }
+
+    default: {
+      console.error("Could not process interaction");
+      break;
     }
   }
 });

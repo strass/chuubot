@@ -29,7 +29,7 @@ export default class Quest extends CustomQuad {
 
   get discordActionComponent() {
     return new MessageActionRow().addComponents(
-      new MessageButton().setLabel("Add Quest XP").setCustomId(this.subject.id)
+      new MessageButton().setLabel("Add Quest XP").setCustomId(`quest|${this.subject.id}`)
     );
   }
 

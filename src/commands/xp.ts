@@ -18,6 +18,7 @@ export default {
       const quest = new Quest(quads);
       const [currentXp] = quest.get(iris.chuubo.xpEarned);
       quest.set(iris.chuubo.xpEarned, currentXp + xp);
+      await store.replaceSubject(Array.from(quest._store));
 
       return await interaction.reply({
         embeds: [quest.discordEmbed],
