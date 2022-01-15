@@ -9,29 +9,30 @@ invariant(process.env.GUILD_ID, "GUILD_ID must be set");
 
 const commands: object[] = [];
 
-const commandFiles = fs
-  .readdirSync("src/services/Discord/commands")
-  .flatMap((fileOrDirectory) => {
-    if (fileOrDirectory.endsWith(".ts")) {
-      return [["", fileOrDirectory]];
-    } else {
-      return fs
-        .readdirSync(`src/services/Discord/commands/${fileOrDirectory}`)
-        .map((fileName) => [fileOrDirectory, fileName]);
-    }
-  })
-  .filter(([, fileName]) => {
-    if (fileName.startsWith("_")) return false;
-    if (fileName !== "index.ts") return false;
-    return true;
-  })
-  .reduce((commands, [directory, file]) => {
-    const prev = commands.get(directory) ?? [];
-    commands.set(directory, [...prev, file]);
-    return commands;
-  }, new Map<string, string[]>());
+export const getCommandFiles = () =>
+  fs
+    .readdirSync("src/services/Discord/commands")
+    .flatMap((fileOrDirectory) => {
+      if (fileOrDirectory.endsWith(".ts")) {
+        return [["", fileOrDirectory]];
+      } else {
+        return fs
+          .readdirSync(`src/services/Discord/commands/${fileOrDirectory}`)
+          .map((fileName) => [fileOrDirectory, fileName]);
+      }
+    })
+    .filter(([, fileName]) => {
+      if (fileName.startsWith("_")) return false;
+      if (fileName !== "index.ts") return false;
+      return true;
+    })
+    .reduce((commands, [directory, file]) => {
+      const prev = commands.get(directory) ?? [];
+      commands.set(directory, [...prev, file]);
+      return commands;
+    }, new Map<string, string[]>());
 
-console.log(commandFiles);
+const commandFiles = getCommandFiles();
 
 invariant(commandFiles.size > 0, "No commands found");
 

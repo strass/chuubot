@@ -1,17 +1,27 @@
 import { Collection, Interaction } from "discord.js";
-import fs from "fs";
 import invariant from "tiny-invariant";
+import { getCommandFiles } from "../deploy.js";
 
 const commands = new Collection<string, Function>();
 const buttons = new Collection<string, Function>();
-const commandFiles = fs.readdirSync("src/services/Discord/commands");
+const commandFiles = getCommandFiles();
 
-for (const file of commandFiles) {
-  const command = (
-    await import(`../commands/${file.substring(0, file.length - 3)}.js`)
-  ).default;
-  commands.set(command.data.name, command.execute);
-  buttons.set(command.data.name, command.button);
+for (const [dir, files] of commandFiles) {
+  for (const fileName of files) {
+    const command = (
+      await import(
+        `../commands/${dir}/${fileName.substring(0, fileName.length - 3)}.js`
+      )
+    ).default;
+    invariant(command, "Command must export a default function");
+    invariant(command.data, "Command must have data");
+
+    commands.set(command.data.name, command.execute);
+    for (const button of command?.buttons ?? []) {
+      console.log(`Registering button ${button.name}`);
+      buttons.set(button.name, button);
+    }
+  }
 }
 
 export default {

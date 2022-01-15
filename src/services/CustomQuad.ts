@@ -6,12 +6,17 @@ import { iris } from "../__schema.js";
 export default class CustomQuad {
   _store: n3.Store<n3.Quad, n3.Quad, n3.Quad, n3.Quad>;
   subject: n3.Quad_Subject;
+  types: n3.Quad_Object[];
   constructor(quads: n3.Quad[]) {
     const store = new n3.Store<n3.Quad, n3.Quad, n3.Quad, n3.Quad>(quads);
-    const subjects = store.getSubjects(iris.rdf.type, null, null);
+    const subjects = store.getSubjects(null, null, null);
     if (subjects.length !== 1)
       throw new Error(`Received ${subjects.length} subjects, expected 1.`);
+    const types = store.getObjects(null, iris.rdf.type, null);
+    if (types.length === 0)
+      throw new Error(`Received no types, expected at least one.`);
     this.subject = subjects[0];
+    this.types = types;
     this._store = store;
   }
 
@@ -38,6 +43,10 @@ export default class CustomQuad {
     this._store.addQuad(newQuad);
     store.replaceSubject(Array.from(this._store));
     return newQuad;
+  }
+
+  save() {
+    store.replaceSubject(Array.from(this._store));
   }
 
   get ttl() {

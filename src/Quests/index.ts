@@ -13,6 +13,7 @@ export default class Quest extends CustomQuad {
       iris.chuubo.Quest,
       null
     );
+
     if (subjects.length !== 1)
       throw new Error("Quest received multiple subjects or a non-quest");
   }
@@ -45,12 +46,15 @@ export default class Quest extends CustomQuad {
   }
 
   static fromJsonLd(data: Record<string, string | number>) {
-    const subject = DataFactory.namedNode(iris.rdf.type);
+    const subject = DataFactory.blankNode();
     const quads = Object.entries(data).map(([key, value]) =>
       DataFactory.quad(
         subject,
         DataFactory.namedNode(key),
-        DataFactory.literal(value)
+        [iris.rdf.type].includes(key)
+          ? DataFactory.namedNode(value as string)
+          : DataFactory.literal(value),
+        DataFactory.defaultGraph()
       )
     );
     return new Quest(quads);

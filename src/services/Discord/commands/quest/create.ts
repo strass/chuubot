@@ -7,10 +7,12 @@ export default async function createQuest(interaction: CommandInteraction) {
   try {
     const name = interaction.options.getString(options.quest.create.name, true);
     const quest = Quest.fromJsonLd({
+      [iris.rdf.type]: iris.chuubo.Quest,
       [iris.rdfs.label]: name,
       [iris.chuubo.xpEarned]: 0,
       [iris.chuubo.xpRequired]: 15,
     });
+    quest.save();
     return await interaction.reply({
       embeds: [
         new MessageEmbed()

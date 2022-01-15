@@ -1,10 +1,10 @@
 import { SlashCommandBuilder } from "@discordjs/builders";
-import {
-  ButtonInteraction, CommandInteraction
-} from "discord.js";
+import { ButtonInteraction, CommandInteraction } from "discord.js";
 import Quest from "../../../../Quests/index.js";
 import { iris } from "../../../../__schema.js";
-import { commands, options } from "../_namespaces.js";
+import { commands, options, interactions } from "../_namespaces.js";
+import buttonAddXp from "./buttons/addXp.js";
+import createQuest from "./create.js";
 import getQuest from "./get.js";
 
 export default {
@@ -38,17 +38,10 @@ export default {
     if (interaction.options.getSubcommand() === commands.quest.get) {
       return getQuest(interaction);
     } else if (interaction.options.getSubcommand() === commands.quest.create) {
+      return createQuest(interaction);
     } else {
       interaction.reply({ ephemeral: true, content: "Invalid command" });
     }
   },
-  async button(interaction: ButtonInteraction) {
-    const [, resourceId] = interaction.customId.split("|");
-    const quest = Quest.find(resourceId);
-    quest.set(
-      iris.chuubo.xpEarned,
-      Number(quest.get(iris.chuubo.xpEarned)) + 1
-    );
-    interaction.reply({ ephemeral: true, content: "Added 1 XP to Quest" });
-  },
+  buttons: [buttonAddXp],
 } as const;
