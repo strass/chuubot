@@ -32,8 +32,8 @@ export default class Character extends CustomQuad {
       null
     );
 
-    const oldQuests = oldQuestsSubjects.flatMap(
-      (subject) => new Quest(Quest.find(subject.id))
+    const oldQuests = oldQuestsSubjects.flatMap((subject) =>
+      Quest.find(subject.id)
     );
 
     const newQuads =

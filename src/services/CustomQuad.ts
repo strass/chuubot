@@ -1,7 +1,7 @@
 import * as n3 from "n3";
-import store, { DataFactory } from "../services/store";
-import writeTurtle from "../services/writer";
-import { iris } from "../__schema";
+import store, { DataFactory } from "../services/store.js";
+import writeTurtle from "../services/writer.js";
+import { iris } from "../__schema.js";
 
 export default class CustomQuad {
   _store: n3.Store<n3.Quad, n3.Quad, n3.Quad, n3.Quad>;
@@ -33,7 +33,7 @@ export default class CustomQuad {
     const newQuad = DataFactory.quad(
       this.subject,
       DataFactory.namedNode(questProperty),
-      newValue
+      DataFactory.literal(newValue)
     );
     this._store.addQuad(newQuad);
     store.replaceSubject(Array.from(this._store));

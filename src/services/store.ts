@@ -1,9 +1,13 @@
-import * as n3 from "n3";
 import fs from "fs/promises";
-import writeTurtle from "./writer";
+import * as n3 from "n3";
+import invariant from "tiny-invariant";
+import writeTurtle from "./writer.js";
 
-const store: n3.Store<n3.Quad, n3.Quad, n3.Quad, n3.Quad> & { replaceSubject: (newQuads: n3.Quad[]) => void } =
-  new n3.Store<n3.Quad, n3.Quad, n3.Quad, n3.Quad>() as any;
+invariant(process.env.ONTOLOGY_FILE, "ONTOLOGY_FILE must be set");
+
+const store: n3.Store<n3.Quad, n3.Quad, n3.Quad, n3.Quad> & {
+  replaceSubject: (newQuads: n3.Quad[]) => void;
+} = new n3.Store<n3.Quad, n3.Quad, n3.Quad, n3.Quad>() as any;
 
 const data = await fs.readFile(process.env.ONTOLOGY_FILE);
 const quads = new n3.Parser().parse(data.toString());
@@ -19,7 +23,10 @@ store.replaceSubject = async (newQuads) => {
   store.removeQuads(oldQuads);
   store.addQuads(newQuads);
 
-  await fs.writeFile(process.env.ONTOLOGY_FILE, await writeTurtle(Array.from(store)));
+  await fs.writeFile(
+    process.env.ONTOLOGY_FILE as string,
+    await writeTurtle(Array.from(store))
+  );
 };
 
 export default store;

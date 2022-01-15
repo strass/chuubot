@@ -35,6 +35,9 @@ export module iris {
         export const everspace = "http://library.fortitude.cyou/everspace";
         export const kymme = "http://library.fortitude.cyou/kymme";
     };
+    export module dc {
+        export const description = "http://purl.org/dc/elements/1.1/description";
+    }
     export module rdf {
         export const type = "http://www.w3.org/1999/02/22-rdf-syntax-ns#type";
     };
@@ -49,11 +52,13 @@ export module iris {
         export const topDataProperty = "http://www.w3.org/2002/07/owl#topDataProperty";
         export const Class = "http://www.w3.org/2002/07/owl#Class";
         export const NamedIndividual = "http://www.w3.org/2002/07/owl#NamedIndividual";
+        export const sameAs = "http://www.w3.org/2002/07/owl#sameAs";
     };
     export module rdfs {
         export const subPropertyOf = "http://www.w3.org/2000/01/rdf-schema#subPropertyOf";
         export const domain = "http://www.w3.org/2000/01/rdf-schema#domain";
         export const range = "http://www.w3.org/2000/01/rdf-schema#range";
+        export const label = "http://www.w3.org/2000/01/rdf-schema#label";
     };
     export module xsd {
         export const boolean = "http://www.w3.org/2001/XMLSchema#boolean";

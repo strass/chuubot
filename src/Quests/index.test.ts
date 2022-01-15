@@ -75,187 +75,46 @@ chuubo:Changes a owl:NamedIndividual, chuubo:Quest;
 `);
   });
 
-  it("can find quests", () => {
-     expect(Quest.find("http://library.fortitude.cyou/quest-dex-any-time-1")).toMatchInlineSnapshot(`
-Array [
-  Object {
-    "graph": Object {
-      "termType": "DefaultGraph",
-      "value": "",
-    },
-    "object": Object {
-      "termType": "NamedNode",
-      "value": "http://library.fortitude.cyou/Quest",
-    },
-    "predicate": Object {
-      "termType": "NamedNode",
-      "value": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
-    },
-    "subject": Object {
-      "termType": "NamedNode",
-      "value": "http://library.fortitude.cyou/quest-dex-any-time-1",
-    },
-    "termType": "Quad",
-  },
-  Object {
-    "graph": Object {
-      "termType": "DefaultGraph",
-      "value": "",
-    },
-    "object": Object {
-      "termType": "NamedNode",
-      "value": "http://www.w3.org/2002/07/owl#NamedIndividual",
-    },
-    "predicate": Object {
-      "termType": "NamedNode",
-      "value": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
-    },
-    "subject": Object {
-      "termType": "NamedNode",
-      "value": "http://library.fortitude.cyou/quest-dex-any-time-1",
-    },
-    "termType": "Quad",
-  },
-  Object {
-    "graph": Object {
-      "termType": "DefaultGraph",
-      "value": "",
-    },
-    "object": Object {
-      "datatype": Object {
-        "termType": "NamedNode",
-        "value": "http://www.w3.org/2001/XMLSchema#string",
-      },
-      "language": "",
-      "termType": "Literal",
-      "value": "You can earn a bonus XP towards this quest at any time (up to once per scene) by explaining what you've been doing or trying for in the current scene as related to one of your errands. Catch-phrase: \\"I was going that way anyway.\\"",
-    },
-    "predicate": Object {
-      "termType": "NamedNode",
-      "value": "http://purl.org/dc/elements/1.1/description",
-    },
-    "subject": Object {
-      "termType": "NamedNode",
-      "value": "http://library.fortitude.cyou/quest-dex-any-time-1",
-    },
-    "termType": "Quad",
-  },
-  Object {
-    "graph": Object {
-      "termType": "DefaultGraph",
-      "value": "",
-    },
-    "object": Object {
-      "termType": "NamedNode",
-      "value": "http://library.fortitude.cyou/dex",
-    },
-    "predicate": Object {
-      "termType": "NamedNode",
-      "value": "http://library.fortitude.cyou/belongsTo",
-    },
-    "subject": Object {
-      "termType": "NamedNode",
-      "value": "http://library.fortitude.cyou/quest-dex-any-time-1",
-    },
-    "termType": "Quad",
-  },
-  Object {
-    "graph": Object {
-      "termType": "DefaultGraph",
-      "value": "",
-    },
-    "object": Object {
-      "datatype": Object {
-        "termType": "NamedNode",
-        "value": "http://www.w3.org/2001/XMLSchema#string",
-      },
-      "language": "",
-      "termType": "Literal",
-      "value": "",
-    },
-    "predicate": Object {
-      "termType": "NamedNode",
-      "value": "http://library.fortitude.cyou/affliction",
-    },
-    "subject": Object {
-      "termType": "NamedNode",
-      "value": "http://library.fortitude.cyou/quest-dex-any-time-1",
-    },
-    "termType": "Quad",
-  },
-  Object {
-    "graph": Object {
-      "termType": "DefaultGraph",
-      "value": "",
-    },
-    "object": Object {
-      "datatype": Object {
-        "termType": "NamedNode",
-        "value": "http://www.w3.org/2001/XMLSchema#int",
-      },
-      "language": "",
-      "termType": "Literal",
-      "value": "0",
-    },
-    "predicate": Object {
-      "termType": "NamedNode",
-      "value": "http://library.fortitude.cyou/xpEarned",
-    },
-    "subject": Object {
-      "termType": "NamedNode",
-      "value": "http://library.fortitude.cyou/quest-dex-any-time-1",
-    },
-    "termType": "Quad",
-  },
-  Object {
-    "graph": Object {
-      "termType": "DefaultGraph",
-      "value": "",
-    },
-    "object": Object {
-      "datatype": Object {
-        "termType": "NamedNode",
-        "value": "http://www.w3.org/2001/XMLSchema#int",
-      },
-      "language": "",
-      "termType": "Literal",
-      "value": "15",
-    },
-    "predicate": Object {
-      "termType": "NamedNode",
-      "value": "http://library.fortitude.cyou/xpRequired",
-    },
-    "subject": Object {
-      "termType": "NamedNode",
-      "value": "http://library.fortitude.cyou/quest-dex-any-time-1",
-    },
-    "termType": "Quad",
-  },
-  Object {
-    "graph": Object {
-      "termType": "DefaultGraph",
-      "value": "",
-    },
-    "object": Object {
-      "datatype": Object {
-        "termType": "NamedNode",
-        "value": "http://www.w3.org/2001/XMLSchema#string",
-      },
-      "language": "",
-      "termType": "Literal",
-      "value": "Running Errands",
-    },
-    "predicate": Object {
-      "termType": "NamedNode",
-      "value": "http://www.w3.org/2000/01/rdf-schema#label",
-    },
-    "subject": Object {
-      "termType": "NamedNode",
-      "value": "http://library.fortitude.cyou/quest-dex-any-time-1",
-    },
-    "termType": "Quad",
-  },
-]
+  it("can find quests", async () => {
+    expect(
+      await Quest.find("http://library.fortitude.cyou/quest-dex-any-time-1").ttl
+    ).toMatchInlineSnapshot(`
+"@prefix owl: <http://www.w3.org/2002/07/owl#>.
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix xml: <http://www.w3.org/XML/1998/namespace>.
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix chuubo: <http://library.fortitude.cyou/>.
+
+chuubo:quest-dex-any-time-1 a chuubo:Quest, owl:NamedIndividual;
+    <http://purl.org/dc/elements/1.1/description> \\"You can earn a bonus XP towards this quest at any time (up to once per scene) by explaining what you've been doing or trying for in the current scene as related to one of your errands. Catch-phrase: \\\\\\"I was going that way anyway.\\\\\\"\\";
+    chuubo:belongsTo chuubo:dex;
+    chuubo:affliction \\"\\";
+    chuubo:xpEarned \\"0\\"^^xsd:int;
+    chuubo:xpRequired \\"15\\"^^xsd:int;
+    rdfs:label \\"Running Errands\\".
+"
 `);
+  });
+
+  it("can find quests by same-as attributes", async () => {
+    expect(
+      Quest.find("http://library.fortitude.cyou/quest-dex-1").subject.id
+    ).toBe("http://library.fortitude.cyou/quest-dex-any-time-1");
+  });
+
+  it("can find quests by short code", async () => {
+    expect(
+      Quest.find("quest-dex-any-time-1").subject.id
+    ).toBe("http://library.fortitude.cyou/quest-dex-any-time-1");
+    expect(
+      Quest.find("chuubo:quest-dex-any-time-1").subject.id
+    ).toBe("http://library.fortitude.cyou/quest-dex-any-time-1");
+    expect(
+      Quest.find("quest-dex-1").subject.id
+    ).toBe("http://library.fortitude.cyou/quest-dex-any-time-1");
+    expect(
+      Quest.find("chuubo:quest-dex-1").subject.id
+    ).toBe("http://library.fortitude.cyou/quest-dex-any-time-1");
   });
 });

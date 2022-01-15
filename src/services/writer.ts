@@ -1,5 +1,5 @@
 import { Quad, Writer } from "n3";
-import { prefixes } from "../__schema";
+import { prefixes } from "../__schema.js";
 
 export default function writeTurtle(quads: Quad[]) {
   const writer = new Writer({ prefixes });

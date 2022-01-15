@@ -13,8 +13,8 @@ const dexChar = store.getQuads(
 describe("Character", () => {
   it("Can grab quests", async () => {
     const character = new Character(dexChar);
-    const quests = character.questQuads.map((quads) =>  (new Quest(quads).ttl));
-    const ttls = await Promise.all(quests)
+    const quests = character.questQuads.map((quads) => quads.ttl);
+    const ttls = await Promise.all(quests);
     expect(ttls).toMatchInlineSnapshot(`
 Array [
   "@prefix owl: <http://www.w3.org/2002/07/owl#>.
