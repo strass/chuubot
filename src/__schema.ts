@@ -1,5 +1,6 @@
 
 export module prefixes {
+    export const dc = "http://purl.org/dc/elements/1.1/description";
     export const owl = "http://www.w3.org/2002/07/owl#";
     export const rdf = "http://www.w3.org/1999/02/22-rdf-syntax-ns#";
     export const xml = "http://www.w3.org/XML/1998/namespace";
@@ -27,8 +28,8 @@ export module iris {
         export const skill = "http://library.fortitude.cyou/skill";
         export const xpEarned = "http://library.fortitude.cyou/xpEarned";
         export const xpRequired = "http://library.fortitude.cyou/xpRequired";
+        export const QuestAlias = "http://library.fortitude.cyou/QuestAlias";
         export const Aspect = "http://library.fortitude.cyou/Aspect";
-        export const Changes = "http://library.fortitude.cyou/Changes";
         export const Emptiness = "http://library.fortitude.cyou/Emptiness";
         export const Knight = "http://library.fortitude.cyou/Knight";
         export const dex = "http://library.fortitude.cyou/dex";
@@ -37,17 +38,17 @@ export module iris {
     };
     export module dc {
         export const description = "http://purl.org/dc/elements/1.1/description";
-    }
+    };
     export module rdf {
         export const type = "http://www.w3.org/1999/02/22-rdf-syntax-ns#type";
     };
     export module owl {
         export const Ontology = "http://www.w3.org/2002/07/owl#Ontology";
+        export const AnnotationProperty = "http://www.w3.org/2002/07/owl#AnnotationProperty";
         export const ObjectProperty = "http://www.w3.org/2002/07/owl#ObjectProperty";
         export const topObjectProperty = "http://www.w3.org/2002/07/owl#topObjectProperty";
         export const FunctionalProperty = "http://www.w3.org/2002/07/owl#FunctionalProperty";
         export const inverseOf = "http://www.w3.org/2002/07/owl#inverseOf";
-        export const TransitiveProperty = "http://www.w3.org/2002/07/owl#TransitiveProperty";
         export const DatatypeProperty = "http://www.w3.org/2002/07/owl#DatatypeProperty";
         export const topDataProperty = "http://www.w3.org/2002/07/owl#topDataProperty";
         export const Class = "http://www.w3.org/2002/07/owl#Class";
@@ -58,14 +59,11 @@ export module iris {
         export const subPropertyOf = "http://www.w3.org/2000/01/rdf-schema#subPropertyOf";
         export const domain = "http://www.w3.org/2000/01/rdf-schema#domain";
         export const range = "http://www.w3.org/2000/01/rdf-schema#range";
+        export const subClassOf = "http://www.w3.org/2000/01/rdf-schema#subClassOf";
         export const label = "http://www.w3.org/2000/01/rdf-schema#label";
     };
     export module xsd {
         export const boolean = "http://www.w3.org/2001/XMLSchema#boolean";
-    };
-    export module undefined {
-        export const int = "\"0\"^^http://www.w3.org/2001/XMLSchema#int";
-        export const boolean = "\"false\"^^http://www.w3.org/2001/XMLSchema#boolean";
     };
 };
 export default {
