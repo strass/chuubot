@@ -1,8 +1,8 @@
 import * as n3 from "n3";
-import Quest from "../Quests";
-import CustomQuad from "../services/CustomQuad";
-import store, { DataFactory } from "../services/store";
-import { iris } from "../__schema";
+import Quest from "../Quests/index.js";
+import CustomQuad from "../services/CustomQuad.js";
+import store, { DataFactory, ldToQuads } from "../services/store.js";
+import { iris } from "../__schema.js";
 
 export default class Character extends CustomQuad {
   constructor(characterQuads: n3.Quad[]) {
@@ -44,14 +44,12 @@ export default class Character extends CustomQuad {
   }
 
   static find(id: string) {
-    const characters = store.getSubjects(
-      DataFactory.namedNode(iris.rdf.type),
-      DataFactory.namedNode(iris.chuubo.Character),
-      DataFactory.defaultGraph()
-    );
-    const subject =
-      characters.find((q) => q.id === id) ??
-      DataFactory.blankNode(String(Math.random()));
-    return store.getQuads(subject, null, null, null);
+    const match = store.findResource(id);
+    return new Character(match);
+  }
+
+  static fromJsonLd(data: Record<string, string | number>) {
+    const quads = ldToQuads(data);
+    return new Character(quads);
   }
 }

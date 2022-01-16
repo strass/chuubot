@@ -1,8 +1,14 @@
+import character from "./character";
+
 export module commands {
   export module quest {
     export const $ = "quest";
     export const get = "get";
     export const create = "create";
+  }
+  export module character {
+    export const $ = "character";
+    export const get = "get";
   }
 }
 
@@ -13,6 +19,11 @@ export module options {
     }
     export module create {
       export const name = "name";
+    }
+  }
+  export module character {
+    export module get {
+      export const subject = "subject";
     }
   }
 }

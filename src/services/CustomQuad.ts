@@ -1,7 +1,8 @@
 import * as n3 from "n3";
+import invariant from "tiny-invariant";
 import store, { DataFactory } from "../services/store.js";
 import writeTurtle from "../services/writer.js";
-import { iris } from "../__schema.js";
+import { iris, prefixes } from "../__schema.js";
 
 export default class CustomQuad {
   _store: n3.Store<n3.Quad, n3.Quad, n3.Quad, n3.Quad>;
