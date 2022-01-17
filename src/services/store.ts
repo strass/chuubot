@@ -33,6 +33,7 @@ store.replaceSubject = async (newQuads) => {
 
 // TODO: what happens if two subjects are pointing at each other with sameAs?
 store.findResource = (_id: string) => {
+  console.log(`Looking up ${_id}`);
   // Normalize ID
   // TODO: make more robust (autolookup from channel description?)
   let id = _id;
@@ -40,9 +41,10 @@ store.findResource = (_id: string) => {
     id = id.replace("chuubo:", prefixes.chuubo);
   } else if (_id.startsWith("awooo:")) {
     id = id.replace("awooo:", prefixes.awooo);
-  } else if (!_id.startsWith(prefixes.chuubo)) {
+  } else if (!id.startsWith("http") && !_id.startsWith(prefixes.chuubo)) {
     id = `${prefixes.chuubo}${_id}`;
   }
+  console.log(`Normalized ID: ${id}`);
 
   // Find all resources of the given type
   const match = new n3.Store<n3.Quad, n3.Quad, n3.Quad, n3.Quad>(

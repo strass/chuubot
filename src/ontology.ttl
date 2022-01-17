@@ -22,6 +22,10 @@
 dash:editor rdf:type owl:AnnotationProperty .
 
 
+###  http://discord.fortitude.cyou/component
+discord:component rdf:type owl:AnnotationProperty .
+
+
 ###  http://purl.org/dc/elements/1.1/description
 dc11:description rdf:type owl:AnnotationProperty .
 
@@ -418,58 +422,87 @@ chuubo:Quest rdf:type owl:NamedIndividual ,
 #    Annotations
 #################################################################
 
-chuubo:Character sh:property [ sh:minCount 1 ;
-                               sh:name "Name" ;
-                               sh:path rdfs:label
+chuubo:Character sh:property [ sh:name "Belongs To" ;
+                               sh:path chuubo:belongsTo
                              ] ,
-                             [ sh:name "Arc" ;
-                               sh:path chuubo:arc
-                             ] ,
-                             [ sh:name "Arc Title" ;
-                               sh:path chuubo:arcTitle
-                             ] ,
-                             [ sh:datatype xsd:int ;
-                               sh:defaultValue "0"^^xsd:int ;
-                               sh:group "Will" ;
-                               sh:name "Current Will" ;
-                               sh:path chuubo:currentWill
-                             ] ,
-                             [ sh:datatype xsd:int ;
-                               sh:defaultValue "0"^^xsd:int ;
-                               sh:group "MP" ;
-                               sh:name "Current MP" ;
-                               sh:path chuubo:currentMp
-                             ] ,
-                             [ sh:name "Bond" ;
+                             [ discord:component discord:embedDescription ;
+                               sh:name "Bond" ;
+                               sh:order "4"^^xsd:int ;
                                sh:path chuubo:bond
                              ] ,
-                             [ sh:datatype xsd:int ;
+                             [ discord:component discord:embedDescription ;
+                               sh:datatype xsd:int ;
                                sh:defaultValue "0"^^xsd:int ;
                                sh:group "Will" ;
                                sh:name "Total Will" ;
+                               sh:order "8"^^xsd:int ;
                                sh:path chuubo:totalWill
                              ] ,
-                             [ sh:name "Belongs To" ;
-                               sh:path chuubo:belongsTo
+                             [ discord:component discord:embedTitle ;
+                               sh:minCount 1 ;
+                               sh:name "Name" ;
+                               sh:order "0"^^xsd:int ;
+                               sh:path rdfs:label
                              ] ,
-                             [ sh:name "Arc Level" ;
-                               sh:path chuubo:arcLevel
-                             ] ,
-                             [ sh:name "Affliction" ;
+                             [ discord:component discord:embedDescription ;
+                               sh:name "Affliction" ;
+                               sh:order "5"^^xsd:int ;
                                sh:path chuubo:affliction
                              ] ,
-                             [ sh:name "Skill" ;
+                             [ discord:component discord:embedDescription ;
+                               sh:name "Skills" ;
+                               sh:order "6"^^xsd:int ;
                                sh:path chuubo:skill
                              ] ,
-                             [ sh:datatype xsd:int ;
+                             [ discord:component discord:embedDescription ;
+                               sh:group "arc" ;
+                               sh:name "Arc Level" ;
+                               sh:order "3"^^xsd:int ;
+                               sh:path chuubo:arcLevel
+                             ] ,
+                             [ discord:component discord:embedDescription ;
+                               sh:group "arc" ;
+                               sh:name "Arc" ;
+                               sh:order "1"^^xsd:int ;
+                               sh:path chuubo:arc
+                             ] ,
+                             [ discord:component discord:embedDescription ;
+                               sh:group "arc" ;
+                               sh:name "Arc Title" ;
+                               sh:order "2"^^xsd:int ;
+                               sh:path chuubo:arcTitle
+                             ] ,
+                             [ discord:component discord:embedDescription ;
+                               sh:datatype xsd:int ;
+                               sh:defaultValue "0"^^xsd:int ;
+                               sh:group "Will" ;
+                               sh:name "Current Will" ;
+                               sh:order "7"^^xsd:int ;
+                               sh:path chuubo:currentWill
+                             ] ,
+                             [ discord:component discord:embedDescription ;
+                               sh:datatype xsd:int ;
                                sh:defaultValue "0"^^xsd:int ;
                                sh:group "MP" ;
                                sh:name "Total MP" ;
+                               sh:order "10"^^xsd:int ;
                                sh:path chuubo:totalMp
+                             ] ,
+                             [ discord:component discord:embedDescription ;
+                               sh:datatype xsd:int ;
+                               sh:defaultValue "0"^^xsd:int ;
+                               sh:group "MP" ;
+                               sh:name "Current MP" ;
+                               sh:order "9"^^xsd:int ;
+                               sh:path chuubo:currentMp
                              ] .
 
 
 chuubo:Quest sh:property [ sh:datatype xsd:integer ;
+                           sh:order 5 ;
+                           sh:path chuubo:xpEarned
+                         ] ,
+                         [ sh:datatype xsd:integer ;
                            sh:order 6 ;
                            sh:path chuubo:xpRequired
                          ] ,
@@ -477,6 +510,12 @@ chuubo:Quest sh:property [ sh:datatype xsd:integer ;
                            sh:name "Major Goals" ;
                            sh:order 2 ;
                            sh:path chuubo:majorGoals
+                         ] ,
+                         [ sh:datatype xsd:string ;
+                           sh:minCount 1 ;
+                           sh:name "Quest Flavor" ;
+                           sh:order 3 ;
+                           sh:path chuubo:questFlavor
                          ] ,
                          [ sh:minCount 1 ;
                            sh:name "Belongs To" ;
@@ -495,16 +534,6 @@ chuubo:Quest sh:property [ sh:datatype xsd:integer ;
                            sh:name "Quest Name" ;
                            sh:order 0 ;
                            sh:path rdfs:label
-                         ] ,
-                         [ sh:datatype xsd:string ;
-                           sh:minCount 1 ;
-                           sh:name "Quest Flavor" ;
-                           sh:order 3 ;
-                           sh:path chuubo:questFlavor
-                         ] ,
-                         [ sh:datatype xsd:integer ;
-                           sh:order 5 ;
-                           sh:path chuubo:xpEarned
                          ] .
 
 

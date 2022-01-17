@@ -16,7 +16,7 @@ export module prefixes {
 
 export module iris {
     export module chuubo {
-        export const  $ = "http://library.fortitude.cyou/";
+        export const $ = "http://library.fortitude.cyou/";
         export const arc = "http://library.fortitude.cyou/arc";
         export const Character = "http://library.fortitude.cyou/Character";
         export const Arc = "http://library.fortitude.cyou/Arc";
@@ -64,6 +64,12 @@ export module iris {
         export const TextAreaEditor = "http://datashapes.org/dash#TextAreaEditor";
         export const TextFieldEditor = "http://datashapes.org/dash#TextFieldEditor";
     };
+    export module discord {
+        export const component = "http://discord.fortitude.cyou/component";
+        export const discordId = "http://discord.fortitude.cyou/discordId";
+        export const embedDescription = "http://discord.fortitude.cyou/embedDescription";
+        export const embedTitle = "http://discord.fortitude.cyou/embedTitle";
+    };
     export module dc11 {
         export const description = "http://purl.org/dc/elements/1.1/description";
     };
@@ -85,9 +91,6 @@ export module iris {
         export const path = "http://www.w3.org/ns/shacl#path";
         export const property = "http://www.w3.org/ns/shacl#property";
         export const NodeShape = "http://www.w3.org/ns/shacl#NodeShape";
-    };
-    export module discord {
-        export const discordId = "http://discord.fortitude.cyou/discordId";
     };
     export module xsd {
         export const token = "http://www.w3.org/2001/XMLSchema#token";

@@ -7,18 +7,42 @@ export default class CustomQuad {
   _store: n3.Store<n3.Quad, n3.Quad, n3.Quad, n3.Quad>;
   subject: n3.Quad_Subject;
   types: n3.Quad_Object[];
-  shape?: n3.Store<n3.Quad, n3.Quad, n3.Quad, n3.Quad>;
-  constructor(quads: n3.Quad[]) {
-    const store = new n3.Store<n3.Quad, n3.Quad, n3.Quad, n3.Quad>(quads);
-    const subjects = store.getSubjects(null, null, null);
+  shape: n3.Store<n3.Quad, n3.Quad, n3.Quad, n3.Quad>;
+  constructor(quads: n3.Quad[], classType: string) {
+    const quadStore = new n3.Store<n3.Quad, n3.Quad, n3.Quad, n3.Quad>(quads);
+    const subjects = quadStore.getSubjects(null, null, null);
     if (subjects.length !== 1)
       throw new Error(`Received ${subjects.length} subjects, expected 1.`);
-    const types = store.getObjects(null, iris.rdf.type, null);
+    const types = quadStore.getObjects(null, iris.rdf.type, null);
     if (types.length === 0)
       throw new Error(`Received no types, expected at least one.`);
+    if (!types.map((t) => t.id).includes(classType)) {
+      throw new Error(`Expected ${classType}.`);
+    }
     this.subject = subjects[0];
     this.types = types;
-    this._store = store;
+    this._store = quadStore;
+
+    // Find the shape of this class and store it
+    const shapeProperties = store.getObjects(
+      classType,
+      iris.sh.property,
+      null,
+    );
+    const shapeQuads = shapeProperties.reduce((acc, curr) => {
+      const propertyObject = store.getQuads(
+        curr.id,
+        null,
+        null,
+        null
+      );
+      return [...acc, ...propertyObject];
+    }, [] as n3.Quad[]);
+    const shape = new n3.Store<n3.Quad, n3.Quad, n3.Quad, n3.Quad>(shapeQuads);
+    if (shape.size === 0) {
+      console.warn(`No shape found for ${classType}`);
+    }
+    this.shape = shape;
   }
 
   get(property: string) {

@@ -14,6 +14,7 @@ export default async function getQuest(interaction: CommandInteraction) {
       options.quest.get.subject,
       true
     );
+    console.log("??????", resourceId);
     const quest = Quest.find(resourceId);
     const majorGoals = quest.get(iris.chuubo.majorGoals);
     const questFlavor = quest.get(iris.chuubo.questFlavor);

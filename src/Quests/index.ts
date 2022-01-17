@@ -5,7 +5,7 @@ import { iris } from "../__schema.js";
 
 export default class Quest extends CustomQuad {
   constructor(questQuads: n3.Quad[]) {
-    super(questQuads);
+    super(questQuads, iris.chuubo.Quest);
 
     const subjects = this._store.getSubjects(
       iris.rdf.type,

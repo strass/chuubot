@@ -1,33 +1,13 @@
 import * as n3 from "n3";
 import Quest from "../Quests/index.js";
 import CustomQuad from "../services/CustomQuad.js";
-import store, { DataFactory, ldToQuads } from "../services/store.js";
+import store, { ldToQuads } from "../services/store.js";
 import { iris } from "../__schema.js";
 
 export default class Character extends CustomQuad {
   constructor(characterQuads: n3.Quad[]) {
-    super(characterQuads);
-    const subjects = this._store.getSubjects(
-      iris.rdf.type,
-      this.types[0], // TODO: is this right?
-      null
-    );
-    if (subjects.length !== 1)
-      throw new Error(
-        "Character received multiple subjects or a non-character"
-      );
-
+    super(characterQuads, iris.chuubo.Character);
     // TODO: validate with shacl
-    const shape = store.getQuads(this.types[0], iris.sh.property, null, null);
-    const test = shape.reduce(
-      (acc, curr) => {
-        const propertyObject = store.getQuads(curr.object.id, null, null, null);
-        return [...acc, ...propertyObject];
-      },
-      [] as n3.Quad[]
-    );
-    console.log(test);
-    this.shape = new n3.Store<n3.Quad, n3.Quad, n3.Quad, n3.Quad>(test);
   }
 
   /** Quests per character */
