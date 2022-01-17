@@ -1,13 +1,13 @@
 import * as n3 from "n3";
-import invariant from "tiny-invariant";
 import store, { DataFactory } from "../services/store.js";
 import writeTurtle from "../services/writer.js";
-import { iris, prefixes } from "../__schema.js";
+import { iris } from "../__schema.js";
 
 export default class CustomQuad {
   _store: n3.Store<n3.Quad, n3.Quad, n3.Quad, n3.Quad>;
   subject: n3.Quad_Subject;
   types: n3.Quad_Object[];
+  shape?: n3.Store<n3.Quad, n3.Quad, n3.Quad, n3.Quad>;
   constructor(quads: n3.Quad[]) {
     const store = new n3.Store<n3.Quad, n3.Quad, n3.Quad, n3.Quad>(quads);
     const subjects = store.getSubjects(null, null, null);
@@ -21,24 +21,47 @@ export default class CustomQuad {
     this._store = store;
   }
 
-  get(questProperty: string) {
-    return this._store
-      .getObjects(this.subject, questProperty, null)
-      .map((object) => object.value);
+  get(property: string) {
+    const results = this._store
+      .getObjects(this.subject, property, null)
+      .map((object) => {
+        const isLiteral = n3.Util.isLiteral(object);
+        if (isLiteral) {
+          return object.value;
+        }
+        const nonLiteralLabel = store.getObjects(
+          object,
+          iris.rdfs.label,
+          null
+        )[0];
+        return nonLiteralLabel ? nonLiteralLabel.value : object.value;
+      });
+    if (results.length === 0) {
+      if (this.shape) {
+        const blankNodes = this.shape.getSubjects(iris.sh.path, property, null);
+        const defaultValues = this.shape.getObjects(
+          blankNodes[0],
+          iris.sh.defaultValue,
+          null
+        );
+        return defaultValues.map((dv) => dv.value);
+      }
+    }
+    return results;
   }
 
   /** Right now this only works for functional properties (single per subject), and only for literals */
-  set(questProperty: string, newValue: any) {
+  set(property: string, newValue: any) {
     const currentQuads = this._store.getQuads(
       this.subject,
-      questProperty,
+      property,
       null,
       null
     );
     this._store.removeQuads(currentQuads);
     const newQuad = DataFactory.quad(
       this.subject,
-      DataFactory.namedNode(questProperty),
+      DataFactory.namedNode(property),
       DataFactory.literal(newValue)
     );
     this._store.addQuad(newQuad);

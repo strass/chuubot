@@ -34,9 +34,12 @@ store.replaceSubject = async (newQuads) => {
 // TODO: what happens if two subjects are pointing at each other with sameAs?
 store.findResource = (_id: string) => {
   // Normalize ID
+  // TODO: make more robust (autolookup from channel description?)
   let id = _id;
   if (_id.startsWith("chuubo:")) {
     id = id.replace("chuubo:", prefixes.chuubo);
+  } else if (_id.startsWith("awooo:")) {
+    id = id.replace("awooo:", prefixes.awooo);
   } else if (!_id.startsWith(prefixes.chuubo)) {
     id = `${prefixes.chuubo}${_id}`;
   }
@@ -73,16 +76,14 @@ export const ldToQuads = (
   data: Record<string, string | number>,
   subject: n3.Quad_Subject = DataFactory.blankNode()
 ) =>
-  Object
-    .entries(data)
-    .map(([key, value]) =>
-      DataFactory.quad(
-        subject,
-        DataFactory.namedNode(key),
-        // TODO: better way to handle named nodes or literals
-        [iris.rdf.type].includes(key)
-          ? DataFactory.namedNode(value as string)
-          : DataFactory.literal(value),
-        DataFactory.defaultGraph()
-      )
-    );
+  Object.entries(data).map(([key, value]) =>
+    DataFactory.quad(
+      subject,
+      DataFactory.namedNode(key),
+      // TODO: better way to handle named nodes or literals
+      [iris.rdf.type].includes(key)
+        ? DataFactory.namedNode(value as string)
+        : DataFactory.literal(value),
+      DataFactory.defaultGraph()
+    )
+  );

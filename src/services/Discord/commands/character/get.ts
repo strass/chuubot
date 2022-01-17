@@ -12,9 +12,23 @@ export default async function getCharacter(interaction: CommandInteraction) {
     const character = Character.find(resourceId);
     return await interaction.reply({
       embeds: [
-        new MessageEmbed()
-          .setTitle(`${character.get(iris.rdfs.label)[0]}`)
-          .setDescription(`${character.get(iris.dc.description)[0]}`),
+        new MessageEmbed().setTitle(`${character.get(iris.rdfs.label)[0]}`)
+          .setDescription(`${character.get(iris.chuubo.arc)[0]} ${
+          character.get(iris.chuubo.arcLevel)[0]
+        } (${character.get(iris.chuubo.arcTitle)[0]})
+          Bond: ${character.get(iris.chuubo.bond)[0]}
+          Affliction: ${character.get(iris.chuubo.affliction)[0]}
+
+          ${character
+            .get(iris.chuubo.skill)
+            .map(
+              (skill) =>
+                `- ${skill}`
+            )
+            .join("\n")}
+            
+            Will: ${character.get(iris.chuubo.currentWill)[0]}/${character.get(iris.chuubo.totalWill)[0]}
+            MP: ${character.get(iris.chuubo.currentMp)[0]}/${character.get(iris.chuubo.totalMp)[0]}`),
       ],
       // components: [
       //   new MessageActionRow().addComponents(

@@ -26,7 +26,7 @@ export default async function getQuest(interaction: CommandInteraction) {
             )}/${quest.get(iris.chuubo.xpRequired)})`
           )
           .setDescription(
-            `${quest.get(iris.dc.description)[0]}
+            `${quest.get(iris.dc11.description)[0]}
 
 ${
   majorGoals.length

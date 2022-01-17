@@ -17,7 +17,7 @@ export default async function createQuest(interaction: CommandInteraction) {
       embeds: [
         new MessageEmbed()
           .setTitle(`${quest.get(iris.rdfs.label)[0]}`)
-          .setDescription(`${quest.get(iris.dc.description)[0]}`),
+          .setDescription(`${quest.get(iris.dc11.description)[0]}`),
       ],
       //   components: [
       //     new MessageActionRow().addComponents(
