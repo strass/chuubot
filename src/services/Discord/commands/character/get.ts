@@ -58,15 +58,23 @@ export default async function getCharacter(interaction: CommandInteraction) {
 
         // If there is a title, add it
         const [name] = curr.getObjects(null, iris.sh.name, null);
-        if (name) {
-          text = text + `**${name.value}**`;
+        const [skipTitle] = curr.getObjects(
+          null,
+          iris.discord.embedSkipLabel,
+          null
+        );
+        if (name && !skipTitle) {
+          text = text + `**${name.value}:** `;
         }
 
         // Get the field by path
         const [path] = curr.getObjects(null, iris.sh.path, null);
         invariant(path, "No path found for description field");
-        const value = character.get(path.value);
-        text = text + value;
+        let value = character.get(path.value);
+        if (value.length > 1) {
+          value = ["\n" + value.map((v) => `- ${v}\n`).join("")];
+        }
+        text = text + value + (skipTitle ? " " : "");
 
         // If the next item is in the same group, don't add a new line
         const [group] = curr.getObjects(null, iris.sh.group, null);

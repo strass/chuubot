@@ -111,6 +111,11 @@ discord:discordId rdf:type owl:DatatypeProperty ;
                   rdfs:range xsd:token .
 
 
+###  http://discord.fortitude.cyou/embedSkipLabel
+discord:embedSkipLabel rdf:type owl:DatatypeProperty ;
+                       rdfs:subPropertyOf owl:topDataProperty .
+
+
 ###  http://library.fortitude.cyou/affliction
 chuubo:affliction rdf:type owl:DatatypeProperty ;
                   rdfs:subPropertyOf owl:topDataProperty .
@@ -458,19 +463,22 @@ chuubo:Character sh:property [ sh:name "Belongs To" ;
                                sh:group "arc" ;
                                sh:name "Arc Level" ;
                                sh:order "3"^^xsd:int ;
-                               sh:path chuubo:arcLevel
+                               sh:path chuubo:arcLevel ;
+                               discord:embedSkipLabel true
                              ] ,
                              [ discord:component discord:embedDescription ;
                                sh:group "arc" ;
                                sh:name "Arc" ;
                                sh:order "1"^^xsd:int ;
-                               sh:path chuubo:arc
+                               sh:path chuubo:arc ;
+                               discord:embedSkipLabel true
                              ] ,
                              [ discord:component discord:embedDescription ;
                                sh:group "arc" ;
                                sh:name "Arc Title" ;
                                sh:order "2"^^xsd:int ;
-                               sh:path chuubo:arcTitle
+                               sh:path chuubo:arcTitle ;
+                               discord:embedSkipLabel true
                              ] ,
                              [ discord:component discord:embedDescription ;
                                sh:datatype xsd:int ;

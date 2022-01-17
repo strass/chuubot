@@ -69,6 +69,7 @@ export module iris {
         export const discordId = "http://discord.fortitude.cyou/discordId";
         export const embedDescription = "http://discord.fortitude.cyou/embedDescription";
         export const embedTitle = "http://discord.fortitude.cyou/embedTitle";
+        export const embedSkipLabel = "http://discord.fortitude.cyou/embedSkipLabel";
     };
     export module dc11 {
         export const description = "http://purl.org/dc/elements/1.1/description";
