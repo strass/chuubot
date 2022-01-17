@@ -11,7 +11,6 @@ export module prefixes {
     export const awooo = "http://awooo.fortitude.cyou/";
     export const chuubo = "http://library.fortitude.cyou/";
     export const discord = "http://discord.fortitude.cyou/";
-    export const $ = "http://library.fortitude.cyou/";
 };
 
 export module iris {

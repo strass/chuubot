@@ -49,16 +49,18 @@ export default class CustomQuad {
     const results = this._store
       .getObjects(this.subject, property, null)
       .map((object) => {
-        const isLiteral = n3.Util.isLiteral(object);
-        if (isLiteral) {
-          return object.value;
-        }
-        const nonLiteralLabel = store.getObjects(
-          object,
-          iris.rdfs.label,
-          null
-        )[0];
-        return nonLiteralLabel ? nonLiteralLabel.value : object.value;
+        return object.value;
+        // This was a nice thought but it will grab an objects label when you want the NamedNode itself
+        // const isLiteral = n3.Util.isLiteral(object);
+        // if (isLiteral) {
+        //   return object.value;
+        // }
+        // const nonLiteralLabel = store.getObjects(
+        //   object,
+        //   iris.rdfs.label,
+        //   null
+        // )[0];
+        // return nonLiteralLabel ? nonLiteralLabel.value : object.value;
       });
     if (results.length === 0) {
       if (this.shape) {

@@ -72,7 +72,12 @@ export default async function getCharacter(interaction: CommandInteraction) {
         invariant(path, "No path found for description field");
         let value = character.get(path.value);
         if (value.length > 1) {
-          value = ["\n" + value.map((v) => `- ${v}\n`).join("")];
+          value = [
+            "\n" +
+              value
+                .map((v) => `- ${v}`)
+                .join("\n"),
+          ];
         }
         text = text + value + (skipTitle ? " " : "");
 

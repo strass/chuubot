@@ -60,12 +60,17 @@ chuubo:Emptiness rdf:type owl:NamedIndividual ,
 
   it("should produce ttl", async () => {
     expect(await quest.ttl).toMatchInlineSnapshot(`
-"@prefix owl: <http://www.w3.org/2002/07/owl#>.
+"@prefix sh: <http://www.w3.org/ns/shacl#>.
+@prefix owl: <http://www.w3.org/2002/07/owl#>.
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
 @prefix xml: <http://www.w3.org/XML/1998/namespace>.
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
+@prefix dash: <http://datashapes.org/dash#>.
+@prefix dc11: <http://purl.org/dc/elements/1.1/>.
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix awooo: <http://awooo.fortitude.cyou/>.
 @prefix chuubo: <http://library.fortitude.cyou/>.
+@prefix discord: <http://discord.fortitude.cyou/>.
 
 chuubo:Changes a owl:NamedIndividual, chuubo:Quest;
     chuubo:xpEarned \\"0\\"^^xsd:int;
@@ -77,44 +82,49 @@ chuubo:Changes a owl:NamedIndividual, chuubo:Quest;
 
   it("can find quests", async () => {
     expect(
-      await Quest.find("http://library.fortitude.cyou/quest-dex-any-time-1").ttl
-    ).toMatchInlineSnapshot(`
-"@prefix owl: <http://www.w3.org/2002/07/owl#>.
+await Quest.find("http://awooo.fortitude.cyou/quest-dex-any-time-1").ttl).
+toMatchInlineSnapshot(`
+"@prefix sh: <http://www.w3.org/ns/shacl#>.
+@prefix owl: <http://www.w3.org/2002/07/owl#>.
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
 @prefix xml: <http://www.w3.org/XML/1998/namespace>.
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
+@prefix dash: <http://datashapes.org/dash#>.
+@prefix dc11: <http://purl.org/dc/elements/1.1/>.
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix awooo: <http://awooo.fortitude.cyou/>.
 @prefix chuubo: <http://library.fortitude.cyou/>.
+@prefix discord: <http://discord.fortitude.cyou/>.
 
-chuubo:quest-dex-any-time-1 a chuubo:Quest, owl:NamedIndividual;
-    <http://purl.org/dc/elements/1.1/description> \\"You can earn a bonus XP towards this quest at any time (up to once per scene) by explaining what you've been doing or trying for in the current scene as related to one of your errands. Catch-phrase: \\\\\\"I was going that way anyway.\\\\\\"\\";
-    chuubo:belongsTo chuubo:dex;
-    chuubo:affliction \\"\\";
+awooo:quest-dex-any-time-1 a chuubo:Quest, owl:NamedIndividual;
+    dc11:description \\"You can earn a bonus XP towards this quest at any time (up to once per scene) by explaining what you've been doing or trying for in the current scene as related to one of your errands. Catch-phrase: \\\\\\"I was going that way anyway.\\\\\\"\\";
+    rdfs:label \\"Running Errands\\";
+    chuubo:belongsTo awooo:character-dex;
     chuubo:xpEarned \\"0\\"^^xsd:int;
-    chuubo:xpRequired \\"15\\"^^xsd:int;
-    rdfs:label \\"Running Errands\\".
+    chuubo:xpRequired \\"15\\"^^xsd:int.
 "
 `);
   });
 
   it("can find quests by same-as attributes", async () => {
     expect(
-      Quest.find("http://library.fortitude.cyou/quest-dex-1").subject.id
-    ).toBe("http://library.fortitude.cyou/quest-dex-any-time-1");
+      Quest.find("http://awooo.fortitude.cyou/quest-dex-1").subject.id
+    ).toBe("http://awooo.fortitude.cyou/quest-dex-any-time-1");
   });
 
   it("can find quests by short code", async () => {
+    // TODO: this is really testing the CustomQuad
+    // expect(
+    //   Quest.find("quest-dex-any-time-1").subject.id
+    // ).toBe("http://library.fortitude.cyou/quest-dex-any-time-1");
     expect(
-      Quest.find("quest-dex-any-time-1").subject.id
-    ).toBe("http://library.fortitude.cyou/quest-dex-any-time-1");
+      Quest.find("awooo:quest-dex-any-time-1").subject.id
+    ).toBe("http://awooo.fortitude.cyou/quest-dex-any-time-1");
+    // expect(
+    //   Quest.find("quest-dex-1").subject.id
+    // ).toBe("http://library.fortitude.cyou/quest-dex-any-time-1");
     expect(
-      Quest.find("chuubo:quest-dex-any-time-1").subject.id
-    ).toBe("http://library.fortitude.cyou/quest-dex-any-time-1");
-    expect(
-      Quest.find("quest-dex-1").subject.id
-    ).toBe("http://library.fortitude.cyou/quest-dex-any-time-1");
-    expect(
-      Quest.find("chuubo:quest-dex-1").subject.id
-    ).toBe("http://library.fortitude.cyou/quest-dex-any-time-1");
+      Quest.find("awooo:quest-dex-1").subject.id
+    ).toBe("http://awooo.fortitude.cyou/quest-dex-any-time-1");
   });
 });

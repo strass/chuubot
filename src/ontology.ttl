@@ -10,7 +10,6 @@
 @prefix awooo: <http://awooo.fortitude.cyou/> .
 @prefix chuubo: <http://library.fortitude.cyou/> .
 @prefix discord: <http://discord.fortitude.cyou/> .
-@base <http://library.fortitude.cyou/> .
 
 <http://library.fortitude.cyou/> rdf:type owl:Ontology .
 
