@@ -31,7 +31,7 @@ export default {
       const command = commands.get(interaction.commandName);
       invariant(command, "Command must exist");
       command(interaction);
-    } else if (interaction.isButton()) {
+    } else if (interaction.isMessageComponent()) {
       const [commandName] = interaction.customId.split("|");
       const command = buttons.get(commandName);
       invariant(command, "Command must exist");

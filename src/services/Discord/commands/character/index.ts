@@ -1,6 +1,8 @@
 import { SlashCommandBuilder } from "@discordjs/builders";
-import { ButtonInteraction, CommandInteraction } from "discord.js";
+import { CommandInteraction } from "discord.js";
 import { commands, options } from "../_namespaces.js";
+import buttonManageWill from "./interactions/will/index.js";
+import selectSetWill from "./interactions/will/set.js";
 import getCharacter from "./get.js";
 
 export default {
@@ -20,11 +22,12 @@ export default {
         )
     ),
   async execute(interaction: CommandInteraction) {
+    interaction.isSelectMenu()
     if (interaction.options.getSubcommand() === commands.character.get) {
       return getCharacter(interaction);
     } else {
       interaction.reply({ ephemeral: true, content: "Invalid command" });
     }
   },
-  buttons: [],
+  buttons: [buttonManageWill, selectSetWill],
 } as const;

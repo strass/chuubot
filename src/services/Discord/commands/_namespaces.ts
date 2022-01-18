@@ -33,5 +33,17 @@ export module interactions {
     export module quest {
       export const addXp = "interactions.buttons.quest.addXp";
     }
+    export module character {
+      export module will {
+        export const $ = "interactions.buttons.character.will";
+      }
+    }
+  }
+  export module select {
+    export module character {
+      export module will {
+        export const set = "interactions.select.will.set";
+      }
+    }
   }
 }
