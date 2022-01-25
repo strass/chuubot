@@ -5,7 +5,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "test": "node --no-warnings --experimental-vm-modules node_modules/jest/bin/jest.js",
+    "test": "DATA_FOLDER=test node --no-warnings --experimental-vm-modules node_modules/jest/bin/jest.js",
     "codegen:schema": "rdf-tools typescript -d src/ontology.ttl > src/__schema.ts -i -p",
     "discord:bot": "node  --loader ts-node/esm --no-warnings -r dotenv/config src/services/Discord/index.ts",
     "discord:deploy": "node  --loader ts-node/esm --no-warnings -r dotenv/config src/services/Discord/deploy.ts"

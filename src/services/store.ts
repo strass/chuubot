@@ -3,6 +3,7 @@ import * as n3 from "n3";
 import invariant from "tiny-invariant";
 import { iris, prefixes } from "../__schema.js";
 import writeTurtle from "./writer.js";
+import path from "path";
 
 invariant(process.env.DATA_FOLDER, "DATA_FOLDER must be set");
 
@@ -12,9 +13,13 @@ const store: n3.Store<n3.Quad, n3.Quad, n3.Quad, n3.Quad> & {
   getLabel: (subject: n3.Quad_Subject) => string;
 } = new n3.Store<n3.Quad, n3.Quad, n3.Quad, n3.Quad>() as any;
 
-const data = await fs.readFile(process.env.DATA_FOLDER);
-const quads = new n3.Parser().parse(data.toString());
-store.addQuads(quads);
+const dataFiles = await fs.readdir(path.resolve(process.env.DATA_FOLDER));
+
+for (const file of dataFiles) {
+  const data = await fs.readFile(path.resolve(process.env.DATA_FOLDER, file));
+  const quads = new n3.Parser().parse(data.toString());
+  store.addQuads(quads);
+}
 
 store.replaceSubject = async (newQuads) => {
   if (newQuads.length === 0) throw new Error("No data provided");

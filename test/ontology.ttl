@@ -1,0 +1,607 @@
+@prefix : <http://www.semanticweb.org/owl/owlapi/turtle#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix dash: <http://datashapes.org/dash#> .
+@prefix dc11: <http://purl.org/dc/elements/1.1/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix awooo: <http://awooo.fortitude.cyou/> .
+@prefix chuubo: <http://library.fortitude.cyou/> .
+@prefix discord: <http://discord.fortitude.cyou/> .
+@base <http://library.fortitude.cyou/> .
+
+<http://library.fortitude.cyou/> rdf:type owl:Ontology .
+
+#################################################################
+#    Annotation properties
+#################################################################
+
+###  http://datashapes.org/dash#editor
+dash:editor rdf:type owl:AnnotationProperty .
+
+
+###  http://discord.fortitude.cyou/component
+discord:component rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/elements/1.1/description
+dc11:description rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3.org/2000/01/rdf-schema#label
+rdfs:label rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3.org/ns/shacl#datatype
+sh:datatype rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3.org/ns/shacl#defaultValue
+sh:defaultValue rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3.org/ns/shacl#group
+sh:group rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3.org/ns/shacl#minCount
+sh:minCount rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3.org/ns/shacl#name
+sh:name rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3.org/ns/shacl#order
+sh:order rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3.org/ns/shacl#path
+sh:path rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3.org/ns/shacl#property
+sh:property rdf:type owl:AnnotationProperty .
+
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  http://library.fortitude.cyou/arc
+chuubo:arc rdf:type owl:ObjectProperty ;
+           rdfs:subPropertyOf owl:topObjectProperty ;
+           rdf:type owl:FunctionalProperty ;
+           rdfs:domain chuubo:Character ;
+           rdfs:range chuubo:Arc ;
+           rdfs:comment "The Arc a Character is on"@en ;
+           rdfs:label "Arc"@en .
+
+
+###  http://library.fortitude.cyou/belongsTo
+chuubo:belongsTo rdf:type owl:ObjectProperty ;
+                 rdfs:subPropertyOf owl:topObjectProperty ;
+                 owl:inverseOf chuubo:onQuest ;
+                 rdfs:domain chuubo:Quest ;
+                 rdfs:range chuubo:Character ;
+                 rdfs:comment "The Character the Object belongs to"@en ;
+                 rdfs:label "Belongs To"@en .
+
+
+###  http://library.fortitude.cyou/onQuest
+chuubo:onQuest rdf:type owl:ObjectProperty ;
+               rdfs:subPropertyOf owl:topObjectProperty ;
+               rdfs:domain chuubo:Character ;
+               rdfs:range chuubo:Quest ;
+               rdfs:comment "Quests a character is on"@en ;
+               rdfs:label "On Quest"@en .
+
+
+#################################################################
+#    Data properties
+#################################################################
+
+###  http://discord.fortitude.cyou/discordId
+discord:discordId rdf:type owl:DatatypeProperty ;
+                  rdfs:subPropertyOf owl:topDataProperty ;
+                  rdf:type owl:FunctionalProperty ;
+                  rdfs:domain chuubo:Player ;
+                  rdfs:range xsd:token .
+
+
+###  http://discord.fortitude.cyou/embedSkipLabel
+discord:embedSkipLabel rdf:type owl:DatatypeProperty ;
+                       rdfs:subPropertyOf owl:topDataProperty .
+
+
+###  http://library.fortitude.cyou/affliction
+chuubo:affliction rdf:type owl:DatatypeProperty ;
+                  rdfs:subPropertyOf owl:topDataProperty .
+
+
+###  http://library.fortitude.cyou/arcLevel
+chuubo:arcLevel rdf:type owl:DatatypeProperty ;
+                rdfs:subPropertyOf owl:topDataProperty ;
+                rdfs:domain chuubo:Character .
+
+
+###  http://library.fortitude.cyou/arcTitle
+chuubo:arcTitle rdf:type owl:DatatypeProperty ;
+                rdfs:subPropertyOf owl:topDataProperty ;
+                rdfs:domain chuubo:Character .
+
+
+###  http://library.fortitude.cyou/bond
+chuubo:bond rdf:type owl:DatatypeProperty ;
+            rdfs:subPropertyOf owl:topDataProperty ;
+            rdfs:domain chuubo:Character .
+
+
+###  http://library.fortitude.cyou/completed
+chuubo:completed rdf:type owl:DatatypeProperty ;
+                 rdfs:subPropertyOf owl:topDataProperty ;
+                 rdf:type owl:FunctionalProperty ;
+                 rdfs:domain chuubo:Quest ;
+                 rdfs:range xsd:boolean .
+
+
+###  http://library.fortitude.cyou/currentMp
+chuubo:currentMp rdf:type owl:DatatypeProperty ;
+                 rdfs:subPropertyOf owl:topDataProperty .
+
+
+###  http://library.fortitude.cyou/currentWill
+chuubo:currentWill rdf:type owl:DatatypeProperty ;
+                   rdfs:subPropertyOf owl:topDataProperty .
+
+
+###  http://library.fortitude.cyou/majorGoals
+chuubo:majorGoals rdf:type owl:DatatypeProperty ;
+                  rdfs:subPropertyOf owl:topDataProperty ;
+                  rdfs:domain chuubo:Quest .
+
+
+###  http://library.fortitude.cyou/questFlavor
+chuubo:questFlavor rdf:type owl:DatatypeProperty ;
+                   rdfs:subPropertyOf owl:topDataProperty ;
+                   rdfs:domain chuubo:Quest .
+
+
+###  http://library.fortitude.cyou/skill
+chuubo:skill rdf:type owl:DatatypeProperty ;
+             rdfs:subPropertyOf owl:topDataProperty ;
+             rdfs:domain chuubo:Character .
+
+
+###  http://library.fortitude.cyou/totalMp
+chuubo:totalMp rdf:type owl:DatatypeProperty ;
+               rdfs:subPropertyOf owl:topDataProperty .
+
+
+###  http://library.fortitude.cyou/totalWill
+chuubo:totalWill rdf:type owl:DatatypeProperty ;
+                 rdfs:subPropertyOf owl:topDataProperty .
+
+
+###  http://library.fortitude.cyou/xpEarned
+chuubo:xpEarned rdf:type owl:DatatypeProperty ;
+                rdfs:subPropertyOf owl:topDataProperty ;
+                rdfs:domain chuubo:Quest .
+
+
+###  http://library.fortitude.cyou/xpRequired
+chuubo:xpRequired rdf:type owl:DatatypeProperty ;
+                  rdfs:subPropertyOf owl:topDataProperty ;
+                  rdfs:domain chuubo:Quest .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  http://library.fortitude.cyou/ActionXP
+chuubo:ActionXP rdf:type owl:Class ;
+                rdfs:subClassOf chuubo:XP ,
+                          sh:NodeShape .
+
+
+###  http://library.fortitude.cyou/Arc
+chuubo:Arc rdf:type owl:Class .
+
+
+###  http://library.fortitude.cyou/BonusXP
+chuubo:BonusXP rdf:type owl:Class ;
+               rdfs:subClassOf chuubo:XP ,
+                          sh:NodeShape .
+
+
+###  http://library.fortitude.cyou/Character
+chuubo:Character rdf:type owl:Class ,
+                          sh:NodeShape .
+
+
+###  http://library.fortitude.cyou/EmotionXP
+chuubo:EmotionXP rdf:type owl:Class ;
+                 rdfs:subClassOf chuubo:XP ,
+                          sh:NodeShape .
+
+
+###  http://library.fortitude.cyou/Player
+chuubo:Player rdf:type owl:Class .
+
+
+###  http://library.fortitude.cyou/Quest
+chuubo:Quest rdf:type owl:Class ,
+                          sh:NodeShape .
+
+
+###  http://library.fortitude.cyou/QuestAlias
+chuubo:QuestAlias rdf:type owl:Class ;
+                  rdfs:subClassOf chuubo:Quest .
+
+
+###  http://library.fortitude.cyou/XP
+chuubo:XP rdf:type owl:Class ,
+                          sh:NodeShape .
+
+
+#################################################################
+#    Individuals
+#################################################################
+
+###  http://awooo.fortitude.cyou/character-dex
+awooo:character-dex rdf:type owl:NamedIndividual ,
+                             chuubo:Character ;
+                    chuubo:arc chuubo:Emptiness ;
+                    chuubo:belongsTo awooo:player-dex ;
+                    chuubo:onQuest awooo:quest-dex-any-time-1 ,
+                                   awooo:quest-dex-emptiness-1 ;
+                    chuubo:affliction "I can't fool anyone." ;
+                    chuubo:arcLevel "0"^^xsd:int ;
+                    chuubo:arcTitle "???" ;
+                    chuubo:bond "I can't turn my back on an animal in need." ;
+                    chuubo:currentWill "7" ;
+                    chuubo:skill "Being Careful -1" ,
+                                 "Cooking 1" ,
+                                 "Imagination 1" ,
+                                 "Physical Work 2" ,
+                                 "Shine 1" ,
+                                 "Speaking The Truth 3" ;
+                    rdfs:label "Dex" .
+
+
+###  http://awooo.fortitude.cyou/character-everspace
+awooo:character-everspace rdf:type owl:NamedIndividual ,
+                                   chuubo:Character ;
+                          chuubo:arc chuubo:Knight ;
+                          chuubo:belongsTo awooo:player-everspace ;
+                          chuubo:affliction "I am one with the network" ;
+                          chuubo:arcLevel "0"^^xsd:int ;
+                          chuubo:arcTitle "Guru" ;
+                          chuubo:bond "I must guide people to what they wish to know." ;
+                          chuubo:skill "Explaining himself -1 (Bwah)" ,
+                                       "Human body stuff 0 (You have one)" ,
+                                       "Sneaky 1 (Tricks and quirks)" ,
+                                       "The Virtual World 2 (You are at home in the cyberspace)" ,
+                                       "Typing 2 (Such words per minute)" ,
+                                       "Understanding 3 (Very good at figuring out things)" .
+
+
+###  http://awooo.fortitude.cyou/character-kymme
+awooo:character-kymme rdf:type owl:NamedIndividual ,
+                               chuubo:Character ;
+                      chuubo:arc chuubo:Aspect ;
+                      chuubo:belongsTo awooo:player-kymme ;
+                      chuubo:affliction "Technology is hostile to me." ;
+                      chuubo:arcLevel "0"^^xsd:int ;
+                      chuubo:arcTitle "n00b" ;
+                      chuubo:bond "I must live up to my sister's example." ;
+                      chuubo:currentWill "8" ;
+                      chuubo:skill "Annoying Little Brother 1" ,
+                                   "Clever 2" ,
+                                   "Determinator 3" ,
+                                   "Good Friend 2" ,
+                                   "Technical Wizardry -1" ;
+                      rdfs:label "Kymme" .
+
+
+###  http://awooo.fortitude.cyou/player-dex
+awooo:player-dex rdf:type owl:NamedIndividual ,
+                          chuubo:Player ;
+                 owl:topDataProperty "432339449427263490"^^xsd:token .
+
+
+###  http://awooo.fortitude.cyou/player-everspace
+awooo:player-everspace rdf:type owl:NamedIndividual ,
+                                chuubo:Player ;
+                       discord:discordId "49374847951704064"^^xsd:token .
+
+
+###  http://awooo.fortitude.cyou/player-kymme
+awooo:player-kymme rdf:type owl:NamedIndividual ,
+                            chuubo:Player ;
+                   discord:discordId "165142368864043008"^^xsd:token .
+
+
+###  http://awooo.fortitude.cyou/quest-dex-1
+awooo:quest-dex-1 rdf:type owl:NamedIndividual ,
+                           chuubo:Quest ,
+                           chuubo:QuestAlias ;
+                  owl:sameAs awooo:quest-dex-any-time-1 .
+
+
+###  http://awooo.fortitude.cyou/quest-dex-2
+awooo:quest-dex-2 rdf:type owl:NamedIndividual ,
+                           chuubo:Quest ,
+                           chuubo:QuestAlias ;
+                  owl:sameAs awooo:quest-dex-emptiness-1 .
+
+
+###  http://awooo.fortitude.cyou/quest-dex-any-time-1
+awooo:quest-dex-any-time-1 rdf:type owl:NamedIndividual ,
+                                    chuubo:Quest ;
+                           chuubo:belongsTo awooo:character-dex ;
+                           chuubo:xpEarned "0"^^xsd:int ;
+                           chuubo:xpRequired "15"^^xsd:int ;
+                           dc11:description "You can earn a bonus XP towards this quest at any time (up to once per scene) by explaining what you've been doing or trying for in the current scene as related to one of your errands. Catch-phrase: \"I was going that way anyway.\"" ;
+                           rdfs:label "Running Errands" .
+
+
+###  http://awooo.fortitude.cyou/quest-dex-emptiness-1
+awooo:quest-dex-emptiness-1 rdf:type owl:NamedIndividual ,
+                                     chuubo:Quest ;
+                            chuubo:belongsTo awooo:character-dex ;
+                            chuubo:completed "false"^^xsd:boolean ;
+                            chuubo:majorGoals "you find a new favorite restaurant/market." ,
+                                              "you find an extracurricular activity to please your dad." ,
+                                              "you meet an aunt you've never met." ;
+                            chuubo:questFlavor "breaking away from who you used to be" ,
+                                               "comforting your little sister" ,
+                                               "doing what someone from your past would have wanted you to do" ,
+                                               "listening to stories from before the 'net" ,
+                                               "missing the life you used to have" ,
+                                               "proving that you're just as good as everyone else" ,
+                                               "talking with somebody about why there’s such a thing as death" ;
+                            chuubo:xpEarned "0"^^xsd:int ;
+                            chuubo:xpRequired "35"^^xsd:int ;
+                            dc11:description "You've just moved to the city to live with your dad. You miss the countryside but you don't have anywhere else to go. It's been hard to adjust to your new life - your dad works long hours so you have to spend a lot of time taking care of your sister." ;
+                            rdfs:label "Changes" .
+
+
+###  http://awooo.fortitude.cyou/quest-ever-1
+awooo:quest-ever-1 rdf:type owl:NamedIndividual ,
+                            chuubo:Quest ,
+                            chuubo:QuestAlias ;
+                   owl:sameAs awooo:quest-ever-any-time-1 .
+
+
+###  http://awooo.fortitude.cyou/quest-ever-2
+awooo:quest-ever-2 rdf:type owl:NamedIndividual ,
+                            chuubo:Quest ,
+                            chuubo:QuestAlias ;
+                   owl:sameAs awooo:quest-ever-mental-training-1 .
+
+
+###  http://awooo.fortitude.cyou/quest-ever-any-time-1
+awooo:quest-ever-any-time-1 rdf:type owl:NamedIndividual ,
+                                     chuubo:Quest ;
+                            chuubo:belongsTo awooo:character-everspace ;
+                            chuubo:xpEarned "0"^^xsd:int ;
+                            chuubo:xpRequired "15"^^xsd:int ;
+                            dc11:description "" ;
+                            rdfs:label "Everspace Any Time" .
+
+
+###  http://awooo.fortitude.cyou/quest-ever-mental-training-1
+awooo:quest-ever-mental-training-1 rdf:type owl:NamedIndividual ,
+                                            chuubo:Quest ;
+                                   chuubo:belongsTo awooo:character-everspace ;
+                                   chuubo:xpEarned "0"^^xsd:int ;
+                                   chuubo:xpRequired "15"^^xsd:int ;
+                                   dc11:description "" ;
+                                   rdfs:label "Mental Training" .
+
+
+###  http://awooo.fortitude.cyou/quest-kymme-1
+awooo:quest-kymme-1 rdf:type owl:NamedIndividual ,
+                             chuubo:Quest ,
+                             chuubo:QuestAlias ;
+                    owl:sameAs awooo:quest-kymme-any-time-1 .
+
+
+###  http://awooo.fortitude.cyou/quest-kymme-any-time-1
+awooo:quest-kymme-any-time-1 rdf:type owl:NamedIndividual ,
+                                      chuubo:Quest ;
+                             chuubo:belongsTo awooo:character-kymme ;
+                             chuubo:xpEarned "0"^^xsd:int ;
+                             chuubo:xpRequired "15"^^xsd:int ;
+                             dc11:description "" ;
+                             rdfs:label "Kymme Any Time" .
+
+
+###  http://library.fortitude.cyou/Aspect
+chuubo:Aspect rdf:type owl:NamedIndividual ,
+                       chuubo:Arc ;
+              rdfs:label "Aspect" .
+
+
+###  http://library.fortitude.cyou/Character
+chuubo:Character rdf:type owl:NamedIndividual ,
+                          sh:NodeShape .
+
+
+###  http://library.fortitude.cyou/Emptiness
+chuubo:Emptiness rdf:type owl:NamedIndividual ,
+                          chuubo:Arc ;
+                 rdfs:label "Emptiness" .
+
+
+###  http://library.fortitude.cyou/Knight
+chuubo:Knight rdf:type owl:NamedIndividual ,
+                       chuubo:Arc .
+
+
+###  http://library.fortitude.cyou/Quest
+chuubo:Quest rdf:type owl:NamedIndividual ,
+                      sh:NodeShape .
+
+
+#################################################################
+#    Annotations
+#################################################################
+chuubo:XP sh:property [
+  sh:name "Date Earned" ;
+  sh:path :date ;
+  sh:datatype xsd:date ;
+], [
+  sh:name "Earned by" ;
+  sh:path :owner 
+].
+chuubo:ActionXP sh:property [].
+chuubo:EmotionXP sh:property [
+  sh:name "Emotion" ;
+  sh:path chuubo:emotion ;
+].
+chuubo:BonusXP sh:property [].
+
+chuubo:Character sh:property [ discord:component discord:embedDescription ;
+                               sh:datatype xsd:int ;
+                               sh:defaultValue "8"^^xsd:int ;
+                               sh:group "Will" ;
+                               sh:name "Total Will" ;
+                               sh:order "8"^^xsd:int ;
+                               sh:path chuubo:totalWill
+                             ] ,
+                             [ discord:embedSkipLabel "true"^^xsd:boolean ;
+                               discord:component discord:embedDescription ;
+                               sh:group "arc" ;
+                               sh:name "Arc Title" ;
+                               sh:order "2"^^xsd:int ;
+                               sh:path chuubo:arcTitle
+                             ] ,
+                             [ discord:component discord:embedDescription ;
+                               sh:name "Skills" ;
+                               sh:order "6"^^xsd:int ;
+                               sh:path chuubo:skill
+                             ] ,
+                             [ discord:component discord:embedDescription ;
+                               sh:datatype xsd:int ;
+                               sh:defaultValue "0"^^xsd:int ;
+                               sh:group "MP" ;
+                               sh:name "Total MP" ;
+                               sh:order "10"^^xsd:int ;
+                               sh:path chuubo:totalMp
+                             ] ,
+                             [ discord:component discord:embedDescription ;
+                               sh:datatype xsd:int ;
+                               sh:defaultValue "0"^^xsd:int ;
+                               sh:group "Will" ;
+                               sh:name "Current Will" ;
+                               sh:order "7"^^xsd:int ;
+                               sh:path chuubo:currentWill
+                             ] ,
+                             [ discord:component discord:embedDescription ;
+                               sh:datatype xsd:int ;
+                               sh:defaultValue "0"^^xsd:int ;
+                               sh:group "MP" ;
+                               sh:name "Current MP" ;
+                               sh:order "9"^^xsd:int ;
+                               sh:path chuubo:currentMp
+                             ] ,
+                             [ discord:component discord:embedDescription ;
+                               sh:name "Bond" ;
+                               sh:order "4"^^xsd:int ;
+                               sh:path chuubo:bond
+                             ] ,
+                             [ sh:name "Belongs To" ;
+                               sh:path chuubo:belongsTo
+                             ] ,
+                             [ discord:embedSkipLabel "true"^^xsd:boolean ;
+                               discord:component discord:embedDescription ;
+                               sh:group "arc" ;
+                               sh:name "Arc" ;
+                               sh:order "1"^^xsd:int ;
+                               sh:path chuubo:arc
+                             ] ,
+                             [ discord:component discord:embedDescription ;
+                               sh:name "Affliction" ;
+                               sh:order "5"^^xsd:int ;
+                               sh:path chuubo:affliction
+                             ] ,
+                             [ discord:component discord:embedTitle ;
+                               sh:minCount 1 ;
+                               sh:name "Name" ;
+                               sh:order "0"^^xsd:int ;
+                               sh:path rdfs:label
+                             ] ,
+                             [ discord:embedSkipLabel "true"^^xsd:boolean ;
+                               discord:component discord:embedDescription ;
+                               sh:group "arc" ;
+                               sh:name "Arc Level" ;
+                               sh:order "3"^^xsd:int ;
+                               sh:path chuubo:arcLevel
+                             ] .
+
+
+chuubo:Quest sh:property [ dash:editor dash:TextFieldEditor ;
+                           discord:component discord:embedTitle ;
+                           sh:datatype xsd:string ;
+                           sh:minCount 1 ;
+                           sh:name "Quest Name" ;
+                           sh:order 0 ;
+                           sh:path rdfs:label
+                         ] ,
+                         [ discord:component discord:embedDescription ;
+                           sh:minCount 1 ;
+                           sh:name "Belongs To" ;
+                           sh:order 4 ;
+                           sh:path chuubo:belongsTo
+                         ] ,
+                         [ dash:editor dash:TextAreaEditor ;
+                           discord:component discord:embedDescription ;
+                           sh:datatype xsd:string ;
+                           sh:name "Description" ;
+                           sh:order "1"^^xsd:int ,
+                                    1 ;
+                           sh:path dc11:description
+                         ] ,
+                         [ discord:component discord:embedDescription ;
+                           sh:datatype xsd:string ;
+                           sh:minCount 1 ;
+                           sh:name "Quest Flavor" ;
+                           sh:order 3 ;
+                           sh:path chuubo:questFlavor
+                         ] ,
+                         [ discord:component discord:embedDescription ;
+                           sh:datatype xsd:integer ;
+                           sh:order 6 ;
+                           sh:path chuubo:xpRequired
+                         ] ,
+                         [ discord:component discord:embedDescription ;
+                           sh:datatype xsd:integer ;
+                           sh:order 5 ;
+                           sh:path chuubo:xpEarned
+                         ] ,
+                         [ discord:component discord:embedDescription ;
+                           sh:datatype xsd:string ;
+                           sh:name "Major Goals" ;
+                           sh:order 2 ;
+                           sh:path chuubo:majorGoals
+                         ] .
+
+
+#################################################################
+#    General axioms
+#################################################################
+
+[ rdf:type owl:AllDisjointClasses ;
+  owl:members ( chuubo:ActionXP
+                chuubo:BonusXP
+                chuubo:EmotionXP
+              )
+] .
+
+
+###  Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi

@@ -1,12 +1,7 @@
 import { Parser } from "n3";
 import Quest from "../Quests";
 import store from "./store";
-import fs from "fs/promises";
 import { iris } from "../__schema";
-
-// Save a copy of the ontology so we don't make any changes with the test
-// TODO: look into mocking the file
-const ontologyContents = (await fs.readFile(process.env.DATA_FOLDER)).toString();
 
 const parser = new Parser();
 const questQuads1 =
@@ -46,9 +41,5 @@ describe("store service", () => {
 
     expect(newQuest.get(iris.chuubo.xpEarned)[0]).toEqual("35")
     expect(newQuest.get(iris.chuubo.completed)[0]).toEqual("true")
-  });
-
-  afterAll(async () => {
-    return await fs.writeFile(process.env.DATA_FOLDER, ontologyContents);
   });
 });
