@@ -32,7 +32,7 @@ store.replaceSubject = async (newQuads) => {
   store.addQuads(newQuads);
 
   await fs.writeFile(
-    process.env.DATA_FOLDER as string,
+    path.resolve(process.env.DATA_FOLDER, "data.ttl"),
     await writeTurtle(Array.from(store))
   );
 };

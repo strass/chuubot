@@ -1,0 +1,428 @@
+@prefix sh: <http://www.w3.org/ns/shacl#>.
+@prefix owl: <http://www.w3.org/2002/07/owl#>.
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix xml: <http://www.w3.org/XML/1998/namespace>.
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
+@prefix dash: <http://datashapes.org/dash#>.
+@prefix dc11: <http://purl.org/dc/elements/1.1/>.
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix awooo: <http://awooo.fortitude.cyou/>.
+@prefix chuubo: <http://library.fortitude.cyou/>.
+@prefix discord: <http://discord.fortitude.cyou/>.
+
+<http://library.fortitude.cyou/> a owl:Ontology.
+dash:editor a owl:AnnotationProperty.
+discord:component a owl:AnnotationProperty.
+dc11:description a owl:AnnotationProperty.
+rdfs:label a owl:AnnotationProperty.
+sh:datatype a owl:AnnotationProperty.
+sh:defaultValue a owl:AnnotationProperty.
+sh:group a owl:AnnotationProperty.
+sh:minCount a owl:AnnotationProperty.
+sh:name a owl:AnnotationProperty.
+sh:order a owl:AnnotationProperty.
+sh:path a owl:AnnotationProperty.
+sh:property a owl:AnnotationProperty.
+chuubo:arc a owl:ObjectProperty, owl:FunctionalProperty;
+    rdfs:label "Arc"@en;
+    rdfs:subPropertyOf owl:topObjectProperty;
+    rdfs:domain chuubo:Character;
+    rdfs:range chuubo:Arc;
+    rdfs:comment "The Arc a Character is on"@en.
+chuubo:Character a owl:Class, sh:NodeShape, owl:NamedIndividual;
+    sh:property _:b0_n3-5, _:b0_n3-6, _:b0_n3-7, _:b0_n3-8, _:b0_n3-9, _:b0_n3-10, _:b0_n3-11, _:b0_n3-12, _:b0_n3-13, _:b0_n3-14, _:b0_n3-15, _:b0_n3-16, _:n3-5, _:n3-6, _:n3-7, _:n3-8, _:n3-9, _:n3-10, _:n3-11, _:n3-12, _:n3-13, _:n3-14, _:n3-15, _:n3-16.
+chuubo:Arc a owl:Class.
+_:b0_n3-5 discord:component discord:embedDescription;
+    sh:datatype xsd:int;
+    sh:defaultValue "8"^^xsd:int;
+    sh:group "Will";
+    sh:name "Total Will";
+    sh:order "8"^^xsd:int;
+    sh:path chuubo:totalWill.
+_:b0_n3-6 discord:component discord:embedDescription;
+    sh:group "arc";
+    sh:name "Arc Title";
+    sh:order "2"^^xsd:int;
+    sh:path chuubo:arcTitle;
+    discord:embedSkipLabel true.
+_:b0_n3-7 discord:component discord:embedDescription;
+    sh:name "Skills";
+    sh:order "6"^^xsd:int;
+    sh:path chuubo:skill.
+_:b0_n3-8 discord:component discord:embedDescription;
+    sh:datatype xsd:int;
+    sh:defaultValue "0"^^xsd:int;
+    sh:group "MP";
+    sh:name "Total MP";
+    sh:order "10"^^xsd:int;
+    sh:path chuubo:totalMp.
+_:b0_n3-9 discord:component discord:embedDescription;
+    sh:datatype xsd:int;
+    sh:defaultValue "0"^^xsd:int;
+    sh:group "Will";
+    sh:name "Current Will";
+    sh:order "7"^^xsd:int;
+    sh:path chuubo:currentWill.
+_:b0_n3-10 discord:component discord:embedDescription;
+    sh:datatype xsd:int;
+    sh:defaultValue "0"^^xsd:int;
+    sh:group "MP";
+    sh:name "Current MP";
+    sh:order "9"^^xsd:int;
+    sh:path chuubo:currentMp.
+_:b0_n3-11 discord:component discord:embedDescription;
+    sh:name "Bond";
+    sh:order "4"^^xsd:int;
+    sh:path chuubo:bond.
+_:b0_n3-12 sh:name "Belongs To";
+    sh:path chuubo:belongsTo.
+_:b0_n3-13 discord:component discord:embedDescription;
+    sh:group "arc";
+    sh:name "Arc";
+    sh:order "1"^^xsd:int;
+    sh:path chuubo:arc;
+    discord:embedSkipLabel true.
+_:b0_n3-14 discord:component discord:embedDescription;
+    sh:name "Affliction";
+    sh:order "5"^^xsd:int;
+    sh:path chuubo:affliction.
+_:b0_n3-15 discord:component discord:embedTitle;
+    sh:minCount 1;
+    sh:name "Name";
+    sh:order "0"^^xsd:int;
+    sh:path rdfs:label.
+_:b0_n3-16 discord:component discord:embedDescription;
+    sh:group "arc";
+    sh:name "Arc Level";
+    sh:order "3"^^xsd:int;
+    sh:path chuubo:arcLevel;
+    discord:embedSkipLabel true.
+chuubo:belongsTo a owl:ObjectProperty;
+    rdfs:label "Belongs To"@en;
+    rdfs:subPropertyOf owl:topObjectProperty;
+    rdfs:domain chuubo:Quest;
+    rdfs:range chuubo:Character;
+    rdfs:comment "The Character the Object belongs to"@en;
+    owl:inverseOf chuubo:onQuest.
+chuubo:Quest a owl:Class, sh:NodeShape, owl:NamedIndividual;
+    sh:property _:b0_n3-17, _:b0_n3-18, _:b0_n3-19, _:b0_n3-20, _:b0_n3-21, _:b0_n3-22, _:b0_n3-23, _:n3-17, _:n3-18, _:n3-19, _:n3-20, _:n3-21, _:n3-22, _:n3-23.
+chuubo:onQuest a owl:ObjectProperty;
+    rdfs:label "On Quest"@en;
+    rdfs:subPropertyOf owl:topObjectProperty;
+    rdfs:domain chuubo:Character;
+    rdfs:range chuubo:Quest;
+    rdfs:comment "Quests a character is on"@en.
+_:b0_n3-17 dash:editor dash:TextFieldEditor;
+    discord:component discord:embedTitle;
+    sh:datatype xsd:string;
+    sh:minCount 1;
+    sh:name "Quest Name";
+    sh:order 0;
+    sh:path rdfs:label.
+_:b0_n3-18 discord:component discord:embedDescription;
+    sh:minCount 1;
+    sh:name "Belongs To";
+    sh:order 4;
+    sh:path chuubo:belongsTo.
+_:b0_n3-19 dash:editor dash:TextAreaEditor;
+    discord:component discord:embedDescription;
+    sh:datatype xsd:string;
+    sh:name "Description";
+    sh:order "1"^^xsd:int, 1;
+    sh:path dc11:description.
+_:b0_n3-20 discord:component discord:embedDescription;
+    sh:datatype xsd:string;
+    sh:minCount 1;
+    sh:name "Quest Flavor";
+    sh:order 3;
+    sh:path chuubo:questFlavor.
+_:b0_n3-21 discord:component discord:embedDescription;
+    sh:datatype xsd:integer;
+    sh:order 6;
+    sh:path chuubo:xpRequired.
+_:b0_n3-22 discord:component discord:embedDescription;
+    sh:datatype xsd:integer;
+    sh:order 5;
+    sh:path chuubo:xpEarned.
+_:b0_n3-23 discord:component discord:embedDescription;
+    sh:datatype xsd:string;
+    sh:name "Major Goals";
+    sh:order 2;
+    sh:path chuubo:majorGoals.
+discord:discordId a owl:FunctionalProperty, owl:DatatypeProperty;
+    rdfs:subPropertyOf owl:topDataProperty;
+    rdfs:domain chuubo:Player;
+    rdfs:range xsd:token.
+chuubo:Player a owl:Class.
+discord:embedSkipLabel a owl:DatatypeProperty;
+    rdfs:subPropertyOf owl:topDataProperty.
+chuubo:affliction a owl:DatatypeProperty;
+    rdfs:subPropertyOf owl:topDataProperty.
+chuubo:arcLevel a owl:DatatypeProperty;
+    rdfs:subPropertyOf owl:topDataProperty;
+    rdfs:domain chuubo:Character.
+chuubo:arcTitle a owl:DatatypeProperty;
+    rdfs:subPropertyOf owl:topDataProperty;
+    rdfs:domain chuubo:Character.
+chuubo:bond a owl:DatatypeProperty;
+    rdfs:subPropertyOf owl:topDataProperty;
+    rdfs:domain chuubo:Character.
+chuubo:completed a owl:FunctionalProperty, owl:DatatypeProperty;
+    rdfs:subPropertyOf owl:topDataProperty;
+    rdfs:domain chuubo:Quest;
+    rdfs:range xsd:boolean.
+chuubo:currentMp a owl:DatatypeProperty;
+    rdfs:subPropertyOf owl:topDataProperty.
+chuubo:currentWill a owl:DatatypeProperty;
+    rdfs:subPropertyOf owl:topDataProperty.
+chuubo:majorGoals a owl:DatatypeProperty;
+    rdfs:subPropertyOf owl:topDataProperty;
+    rdfs:domain chuubo:Quest.
+chuubo:questFlavor a owl:DatatypeProperty;
+    rdfs:subPropertyOf owl:topDataProperty;
+    rdfs:domain chuubo:Quest.
+chuubo:skill a owl:DatatypeProperty;
+    rdfs:subPropertyOf owl:topDataProperty;
+    rdfs:domain chuubo:Character.
+chuubo:totalMp a owl:DatatypeProperty;
+    rdfs:subPropertyOf owl:topDataProperty.
+chuubo:totalWill a owl:DatatypeProperty;
+    rdfs:subPropertyOf owl:topDataProperty.
+chuubo:xpEarned a owl:DatatypeProperty;
+    rdfs:subPropertyOf owl:topDataProperty;
+    rdfs:domain chuubo:Quest.
+chuubo:xpRequired a owl:DatatypeProperty;
+    rdfs:subPropertyOf owl:topDataProperty;
+    rdfs:domain chuubo:Quest.
+chuubo:ActionXP a owl:Class;
+    sh:property _:b0_n3-2, _:n3-2;
+    rdfs:subClassOf sh:NodeShape, chuubo:XP.
+chuubo:XP a owl:Class, sh:NodeShape;
+    sh:property _:b0_n3-0, _:b0_n3-1, _:n3-0, _:n3-1.
+_:b0_n3-0 sh:datatype xsd:date;
+    sh:name "Date Earned";
+    sh:path <http://www.semanticweb.org/owl/owlapi/turtle#date>.
+_:b0_n3-1 sh:name "Earned by";
+    sh:path <http://www.semanticweb.org/owl/owlapi/turtle#owner>.
+chuubo:BonusXP a owl:Class;
+    sh:property _:b0_n3-4, _:n3-4;
+    rdfs:subClassOf sh:NodeShape, chuubo:XP.
+chuubo:EmotionXP a owl:Class;
+    sh:property _:b0_n3-3, _:n3-3;
+    rdfs:subClassOf sh:NodeShape, chuubo:XP.
+_:b0_n3-3 sh:name "Emotion";
+    sh:path chuubo:emotion.
+chuubo:QuestAlias a owl:Class;
+    rdfs:subClassOf chuubo:Quest.
+awooo:character-dex a chuubo:Character, owl:NamedIndividual;
+    rdfs:label "Dex";
+    chuubo:arc chuubo:Emptiness;
+    chuubo:belongsTo awooo:player-dex;
+    chuubo:onQuest awooo:quest-dex-any-time-1, awooo:quest-dex-emptiness-1;
+    chuubo:affliction "I can't fool anyone.";
+    chuubo:arcLevel "0"^^xsd:int;
+    chuubo:arcTitle "???";
+    chuubo:bond "I can't turn my back on an animal in need.";
+    chuubo:currentWill "7";
+    chuubo:skill "Being Careful -1", "Cooking 1", "Imagination 1", "Physical Work 2", "Shine 1", "Speaking The Truth 3".
+chuubo:Emptiness a chuubo:Arc, owl:NamedIndividual;
+    rdfs:label "Emptiness".
+awooo:player-dex a owl:NamedIndividual, chuubo:Player;
+    owl:topDataProperty "432339449427263490"^^xsd:token.
+awooo:quest-dex-any-time-1 a owl:NamedIndividual, chuubo:Quest;
+    dc11:description "You can earn a bonus XP towards this quest at any time (up to once per scene) by explaining what you've been doing or trying for in the current scene as related to one of your errands. Catch-phrase: \"I was going that way anyway.\"";
+    rdfs:label "Running Errands";
+    chuubo:belongsTo awooo:character-dex;
+    chuubo:xpEarned "0"^^xsd:int;
+    chuubo:xpRequired "15"^^xsd:int.
+awooo:quest-dex-emptiness-1 a owl:NamedIndividual, chuubo:Quest;
+    dc11:description "You've just moved to the city to live with your dad. You miss the countryside but you don't have anywhere else to go. It's been hard to adjust to your new life - your dad works long hours so you have to spend a lot of time taking care of your sister.";
+    rdfs:label "Changes";
+    chuubo:belongsTo awooo:character-dex;
+    chuubo:completed false;
+    chuubo:majorGoals "you find a new favorite restaurant/market.", "you find an extracurricular activity to please your dad.", "you meet an aunt you've never met.";
+    chuubo:questFlavor "breaking away from who you used to be", "comforting your little sister", "doing what someone from your past would have wanted you to do", "listening to stories from before the 'net", "missing the life you used to have", "proving that you're just as good as everyone else", "talking with somebody about why there’s such a thing as death";
+    chuubo:xpEarned "0"^^xsd:int;
+    chuubo:xpRequired "35"^^xsd:int.
+awooo:character-everspace a chuubo:Character, owl:NamedIndividual;
+    chuubo:arc chuubo:Knight;
+    chuubo:belongsTo awooo:player-everspace;
+    chuubo:affliction "I am one with the network";
+    chuubo:arcLevel "0"^^xsd:int;
+    chuubo:arcTitle "Guru";
+    chuubo:bond "I must guide people to what they wish to know.";
+    chuubo:skill "Explaining himself -1 (Bwah)", "Human body stuff 0 (You have one)", "Sneaky 1 (Tricks and quirks)", "The Virtual World 2 (You are at home in the cyberspace)", "Typing 2 (Such words per minute)", "Understanding 3 (Very good at figuring out things)".
+chuubo:Knight a chuubo:Arc, owl:NamedIndividual.
+awooo:player-everspace a owl:NamedIndividual, chuubo:Player;
+    discord:discordId "49374847951704064"^^xsd:token.
+awooo:character-kymme a chuubo:Character, owl:NamedIndividual;
+    rdfs:label "Kymme";
+    chuubo:arc chuubo:Aspect;
+    chuubo:belongsTo awooo:player-kymme;
+    chuubo:affliction "Technology is hostile to me.";
+    chuubo:arcLevel "0"^^xsd:int;
+    chuubo:arcTitle "n00b";
+    chuubo:bond "I must live up to my sister's example.";
+    chuubo:currentWill "8";
+    chuubo:skill "Annoying Little Brother 1", "Clever 2", "Determinator 3", "Good Friend 2", "Technical Wizardry -1".
+chuubo:Aspect a chuubo:Arc, owl:NamedIndividual;
+    rdfs:label "Aspect".
+awooo:player-kymme a owl:NamedIndividual, chuubo:Player;
+    discord:discordId "165142368864043008"^^xsd:token.
+awooo:quest-dex-1 a owl:NamedIndividual, chuubo:Quest, chuubo:QuestAlias;
+    owl:sameAs awooo:quest-dex-any-time-1.
+awooo:quest-dex-2 a owl:NamedIndividual, chuubo:Quest, chuubo:QuestAlias;
+    owl:sameAs awooo:quest-dex-emptiness-1.
+awooo:quest-ever-1 a owl:NamedIndividual, chuubo:Quest, chuubo:QuestAlias;
+    owl:sameAs awooo:quest-ever-any-time-1.
+awooo:quest-ever-any-time-1 a owl:NamedIndividual, chuubo:Quest;
+    dc11:description "";
+    rdfs:label "Everspace Any Time";
+    chuubo:belongsTo awooo:character-everspace;
+    chuubo:xpEarned "0"^^xsd:int;
+    chuubo:xpRequired "15"^^xsd:int.
+awooo:quest-ever-2 a owl:NamedIndividual, chuubo:Quest, chuubo:QuestAlias;
+    owl:sameAs awooo:quest-ever-mental-training-1.
+awooo:quest-ever-mental-training-1 a owl:NamedIndividual, chuubo:Quest;
+    dc11:description "";
+    rdfs:label "Mental Training";
+    chuubo:belongsTo awooo:character-everspace;
+    chuubo:xpEarned "0"^^xsd:int;
+    chuubo:xpRequired "15"^^xsd:int.
+awooo:quest-kymme-1 a owl:NamedIndividual, chuubo:Quest, chuubo:QuestAlias;
+    owl:sameAs awooo:quest-kymme-any-time-1.
+awooo:quest-kymme-any-time-1 a owl:NamedIndividual, chuubo:Quest;
+    dc11:description "";
+    rdfs:label "Kymme Any Time";
+    chuubo:belongsTo awooo:character-kymme;
+    chuubo:xpEarned "0"^^xsd:int;
+    chuubo:xpRequired "15"^^xsd:int.
+_:b0_n3-24 a owl:AllDisjointClasses;
+    owl:members _:b0_n3-25.
+_:b0_n3-25 rdf:first chuubo:ActionXP;
+    rdf:rest _:b0_n3-26.
+_:b0_n3-26 rdf:first chuubo:BonusXP;
+    rdf:rest _:b0_n3-27.
+_:b0_n3-27 rdf:first chuubo:EmotionXP;
+    rdf:rest rdf:nil.
+chuubo:MyNewQuest a owl:NamedIndividual, chuubo:Quest;
+    chuubo:completed true;
+    chuubo:xpEarned "35"^^xsd:int;
+    chuubo:xpRequired "35"^^xsd:int.
+_:n3-0 sh:datatype xsd:date;
+    sh:name "Date Earned";
+    sh:path <http://www.semanticweb.org/owl/owlapi/turtle#date>.
+_:n3-1 sh:name "Earned by";
+    sh:path <http://www.semanticweb.org/owl/owlapi/turtle#owner>.
+_:n3-3 sh:name "Emotion";
+    sh:path chuubo:emotion.
+_:n3-5 discord:component discord:embedDescription;
+    sh:datatype xsd:int;
+    sh:defaultValue "8"^^xsd:int;
+    sh:group "Will";
+    sh:name "Total Will";
+    sh:order "8"^^xsd:int;
+    sh:path chuubo:totalWill.
+_:n3-6 discord:component discord:embedDescription;
+    sh:group "arc";
+    sh:name "Arc Title";
+    sh:order "2"^^xsd:int;
+    sh:path chuubo:arcTitle;
+    discord:embedSkipLabel true.
+_:n3-7 discord:component discord:embedDescription;
+    sh:name "Skills";
+    sh:order "6"^^xsd:int;
+    sh:path chuubo:skill.
+_:n3-8 discord:component discord:embedDescription;
+    sh:datatype xsd:int;
+    sh:defaultValue "0"^^xsd:int;
+    sh:group "MP";
+    sh:name "Total MP";
+    sh:order "10"^^xsd:int;
+    sh:path chuubo:totalMp.
+_:n3-9 discord:component discord:embedDescription;
+    sh:datatype xsd:int;
+    sh:defaultValue "0"^^xsd:int;
+    sh:group "Will";
+    sh:name "Current Will";
+    sh:order "7"^^xsd:int;
+    sh:path chuubo:currentWill.
+_:n3-10 discord:component discord:embedDescription;
+    sh:datatype xsd:int;
+    sh:defaultValue "0"^^xsd:int;
+    sh:group "MP";
+    sh:name "Current MP";
+    sh:order "9"^^xsd:int;
+    sh:path chuubo:currentMp.
+_:n3-11 discord:component discord:embedDescription;
+    sh:name "Bond";
+    sh:order "4"^^xsd:int;
+    sh:path chuubo:bond.
+_:n3-12 sh:name "Belongs To";
+    sh:path chuubo:belongsTo.
+_:n3-13 discord:component discord:embedDescription;
+    sh:group "arc";
+    sh:name "Arc";
+    sh:order "1"^^xsd:int;
+    sh:path chuubo:arc;
+    discord:embedSkipLabel true.
+_:n3-14 discord:component discord:embedDescription;
+    sh:name "Affliction";
+    sh:order "5"^^xsd:int;
+    sh:path chuubo:affliction.
+_:n3-15 discord:component discord:embedTitle;
+    sh:minCount 1;
+    sh:name "Name";
+    sh:order "0"^^xsd:int;
+    sh:path rdfs:label.
+_:n3-16 discord:component discord:embedDescription;
+    sh:group "arc";
+    sh:name "Arc Level";
+    sh:order "3"^^xsd:int;
+    sh:path chuubo:arcLevel;
+    discord:embedSkipLabel true.
+_:n3-17 dash:editor dash:TextFieldEditor;
+    discord:component discord:embedTitle;
+    sh:datatype xsd:string;
+    sh:minCount 1;
+    sh:name "Quest Name";
+    sh:order 0;
+    sh:path rdfs:label.
+_:n3-18 discord:component discord:embedDescription;
+    sh:minCount 1;
+    sh:name "Belongs To";
+    sh:order 4;
+    sh:path chuubo:belongsTo.
+_:n3-19 dash:editor dash:TextAreaEditor;
+    discord:component discord:embedDescription;
+    sh:datatype xsd:string;
+    sh:name "Description";
+    sh:order "1"^^xsd:int, 1;
+    sh:path dc11:description.
+_:n3-20 discord:component discord:embedDescription;
+    sh:datatype xsd:string;
+    sh:minCount 1;
+    sh:name "Quest Flavor";
+    sh:order 3;
+    sh:path chuubo:questFlavor.
+_:n3-21 discord:component discord:embedDescription;
+    sh:datatype xsd:integer;
+    sh:order 6;
+    sh:path chuubo:xpRequired.
+_:n3-22 discord:component discord:embedDescription;
+    sh:datatype xsd:integer;
+    sh:order 5;
+    sh:path chuubo:xpEarned.
+_:n3-23 discord:component discord:embedDescription;
+    sh:datatype xsd:string;
+    sh:name "Major Goals";
+    sh:order 2;
+    sh:path chuubo:majorGoals.
+_:n3-24 a owl:AllDisjointClasses;
+    owl:members _:n3-25.
+_:n3-25 rdf:first chuubo:ActionXP;
+    rdf:rest _:n3-26.
+_:n3-26 rdf:first chuubo:BonusXP;
+    rdf:rest _:n3-27.
+_:n3-27 rdf:first chuubo:EmotionXP;
+    rdf:rest rdf:nil.
