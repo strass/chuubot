@@ -1,7 +1,5 @@
 import { SlashCommandBuilder } from "@discordjs/builders";
-import { ButtonInteraction, CommandInteraction } from "discord.js";
-import Quest from "../../../../Quests/index.js";
-import { iris } from "../../../../__schema.js";
+import { CommandInteraction } from "discord.js";
 import { commands, options, interactions } from "../_namespaces.js";
 import buttonAddXp from "./buttons/addXp.js";
 import createQuest from "./create.js";

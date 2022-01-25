@@ -10,6 +10,10 @@ export module commands {
     export const $ = "character";
     export const get = "get";
   }
+
+  export module xp {
+    export const $ = "xp";
+  }
 }
 
 export module options {
@@ -36,6 +40,9 @@ export module interactions {
     export module character {
       export module will {
         export const $ = "interactions.buttons.character.will";
+      }
+      export module quests {
+        export const $ = "interactions.buttons.character.quests";
       }
     }
   }

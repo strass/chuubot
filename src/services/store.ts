@@ -4,14 +4,15 @@ import invariant from "tiny-invariant";
 import { iris, prefixes } from "../__schema.js";
 import writeTurtle from "./writer.js";
 
-invariant(process.env.ONTOLOGY_FILE, "ONTOLOGY_FILE must be set");
+invariant(process.env.DATA_FOLDER, "DATA_FOLDER must be set");
 
 const store: n3.Store<n3.Quad, n3.Quad, n3.Quad, n3.Quad> & {
   replaceSubject: (newQuads: n3.Quad[]) => void;
   findResource: (id: string) => n3.Quad[];
+  getLabel: (subject: n3.Quad_Subject) => string;
 } = new n3.Store<n3.Quad, n3.Quad, n3.Quad, n3.Quad>() as any;
 
-const data = await fs.readFile(process.env.ONTOLOGY_FILE);
+const data = await fs.readFile(process.env.DATA_FOLDER);
 const quads = new n3.Parser().parse(data.toString());
 store.addQuads(quads);
 
@@ -26,7 +27,7 @@ store.replaceSubject = async (newQuads) => {
   store.addQuads(newQuads);
 
   await fs.writeFile(
-    process.env.ONTOLOGY_FILE as string,
+    process.env.DATA_FOLDER as string,
     await writeTurtle(Array.from(store))
   );
 };
@@ -66,6 +67,11 @@ store.findResource = (_id: string) => {
 
   // Otherwise, return the resource
   return Array.from(match);
+};
+
+store.getLabel = (subject: n3.Quad_Subject) => {
+  const label = store.getObjects(subject, iris.rdfs.label, null)[0]?.value;
+  return label ?? subject.value;
 };
 
 export default store;

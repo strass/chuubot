@@ -24,18 +24,9 @@ export default class CustomQuad {
     this._store = quadStore;
 
     // Find the shape of this class and store it
-    const shapeProperties = store.getObjects(
-      classType,
-      iris.sh.property,
-      null,
-    );
+    const shapeProperties = store.getObjects(classType, iris.sh.property, null);
     const shapeQuads = shapeProperties.reduce((acc, curr) => {
-      const propertyObject = store.getQuads(
-        curr.id,
-        null,
-        null,
-        null
-      );
+      const propertyObject = store.getQuads(curr.id, null, null, null);
       return [...acc, ...propertyObject];
     }, [] as n3.Quad[]);
     const shape = new n3.Store<n3.Quad, n3.Quad, n3.Quad, n3.Quad>(shapeQuads);
@@ -46,31 +37,23 @@ export default class CustomQuad {
   }
 
   get(property: string) {
-    const results = this._store
-      .getObjects(this.subject, property, null)
-      .map((object) => {
-        return object.value;
-        // This was a nice thought but it will grab an objects label when you want the NamedNode itself
-        // const isLiteral = n3.Util.isLiteral(object);
-        // if (isLiteral) {
-        //   return object.value;
-        // }
-        // const nonLiteralLabel = store.getObjects(
-        //   object,
-        //   iris.rdfs.label,
-        //   null
-        // )[0];
-        // return nonLiteralLabel ? nonLiteralLabel.value : object.value;
-      });
+    return this.getQuads(property).map((q) => q.object.value);
+  }
+
+  getQuads(property: string) {
+    const results = this._store.getQuads(this.subject, property, null, null);
     if (results.length === 0) {
       if (this.shape) {
         const blankNodes = this.shape.getSubjects(iris.sh.path, property, null);
-        const defaultValues = this.shape.getObjects(
-          blankNodes[0],
-          iris.sh.defaultValue,
-          null
-        );
-        return defaultValues.map((dv) => dv.value);
+        return this.shape
+          .getQuads(blankNodes[0], iris.sh.defaultValue, null, null)
+          .map((q) =>
+            DataFactory.quad(
+              this.subject,
+              DataFactory.namedNode(property),
+              q.object
+            )
+          );
       }
     }
     return results;

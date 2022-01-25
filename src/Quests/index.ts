@@ -1,6 +1,6 @@
 import * as n3 from "n3";
 import CustomQuad from "../services/CustomQuad.js";
-import store, { DataFactory, ldToQuads } from "../services/store.js";
+import store, { ldToQuads } from "../services/store.js";
 import { iris } from "../__schema.js";
 
 export default class Quest extends CustomQuad {

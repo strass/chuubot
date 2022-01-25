@@ -6,6 +6,7 @@ import {
 } from "discord.js";
 import Quest from "../../../../Quests/index.js";
 import { iris } from "../../../../__schema.js";
+import createDiscordEmbed from "../../helpers/embed.js";
 import { interactions, options } from "../_namespaces.js";
 
 export default async function getQuest(interaction: CommandInteraction) {
@@ -14,35 +15,17 @@ export default async function getQuest(interaction: CommandInteraction) {
       options.quest.get.subject,
       true
     );
-    console.log("??????", resourceId);
     const quest = Quest.find(resourceId);
-    const majorGoals = quest.get(iris.chuubo.majorGoals);
-    const questFlavor = quest.get(iris.chuubo.questFlavor);
+    const { title, description } = createDiscordEmbed(quest);
     return await interaction.reply({
       embeds: [
         new MessageEmbed()
           .setTitle(
-            `${quest.get(iris.rdfs.label)[0]} (${quest.get(
-              iris.chuubo.xpEarned
-            )}/${quest.get(iris.chuubo.xpRequired)})`
+            `${title} (${quest.get(iris.chuubo.xpEarned)}/${quest.get(
+              iris.chuubo.xpRequired
+            )})`
           )
-          .setDescription(
-            `${quest.get(iris.dc11.description)[0]}
-
-${
-  majorGoals.length
-    ? `**Major Goals**
-${majorGoals.map((goal) => `- ${goal}`).join("\n")}`
-    : ""
-}
-
-${
-  questFlavor.length
-    ? `**Quest Flavor**
-${questFlavor.map((goal) => `- ${goal}`).join("\n")}`
-    : ""
-}`.trimEnd()
-          ),
+          .setDescription(description),
       ],
       components: [
         new MessageActionRow().addComponents(

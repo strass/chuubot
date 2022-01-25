@@ -1,4 +1,3 @@
-
 export module prefixes {
     export const sh = "http://www.w3.org/ns/shacl#";
     export const owl = "http://www.w3.org/2002/07/owl#";

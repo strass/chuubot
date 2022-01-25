@@ -6,7 +6,7 @@ import { iris } from "../__schema";
 
 // Save a copy of the ontology so we don't make any changes with the test
 // TODO: look into mocking the file
-const ontologyContents = (await fs.readFile(process.env.ONTOLOGY_FILE)).toString();
+const ontologyContents = (await fs.readFile(process.env.DATA_FOLDER)).toString();
 
 const parser = new Parser();
 const questQuads1 =
@@ -49,6 +49,6 @@ describe("store service", () => {
   });
 
   afterAll(async () => {
-    return await fs.writeFile(process.env.ONTOLOGY_FILE, ontologyContents);
+    return await fs.writeFile(process.env.DATA_FOLDER, ontologyContents);
   });
 });

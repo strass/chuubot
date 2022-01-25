@@ -1,7 +1,6 @@
 import {
   ButtonInteraction,
   MessageActionRow,
-  MessageButton,
   MessageSelectMenu,
 } from "discord.js";
 import Character from "../../../../../../Character/index.js";

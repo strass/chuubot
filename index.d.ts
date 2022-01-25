@@ -2,7 +2,7 @@
 declare global {
     namespace NodeJS {
       interface ProcessEnv {
-        ONTOLOGY_FILE: string;
+        DATA_FOLDER: string;
 
         // Discord Bot
         DISCORD_TOKEN: string;
