@@ -8,7 +8,7 @@ import path from "path";
 invariant(process.env.DATA_FOLDER, "DATA_FOLDER must be set");
 
 const store: n3.Store<n3.Quad, n3.Quad, n3.Quad, n3.Quad> & {
-  replaceSubject: (newQuads: n3.Quad[]) => void;
+  replaceSubject: (newQuads: n3.Quad[]) => Promise<void>;
   findResource: (id: string) => n3.Quad[];
   getLabel: (subject: n3.Quad_Subject) => string;
 } = new n3.Store<n3.Quad, n3.Quad, n3.Quad, n3.Quad>() as any;

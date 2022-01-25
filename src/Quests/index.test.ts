@@ -97,11 +97,11 @@ toMatchInlineSnapshot(`
 @prefix discord: <http://discord.fortitude.cyou/>.
 
 awooo:quest-dex-any-time-1 a owl:NamedIndividual, chuubo:Quest;
-    dc11:description \\"You can earn a bonus XP towards this quest at any time (up to once per scene) by explaining what you've been doing or trying for in the current scene as related to one of your errands. Catch-phrase: \\\\\\"I was going that way anyway.\\\\\\"\\";
-    rdfs:label \\"Running Errands\\";
     chuubo:belongsTo awooo:character-dex;
+    rdfs:label \\"Running Errands\\";
+    chuubo:xpEarned \\"0\\"^^xsd:int;
     chuubo:xpRequired \\"15\\"^^xsd:int;
-    chuubo:xpEarned \\"0\\"^^xsd:int.
+    dc11:description \\"You can earn a bonus XP towards this quest at any time (up to once per scene) by explaining what you've been doing or trying for in the current scene as related to one of your errands. Catch-phrase: \\\\\\"I was going that way anyway.\\\\\\"\\".
 "
 `);
   });
